@@ -20,6 +20,7 @@ export const generateMockTable = (rows, cols) => {
       rowData.push({
         column: `col-${col}`,
         value: `Row ${row}, Col ${col}`,
+        id: `${row}x${col}`
       });
     }
     data.push(rowData);
