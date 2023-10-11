@@ -4,6 +4,7 @@ import DataTableRow from "./DataTableRow";
 import DataTableCell from "./DataTableCell";
 
 const LOAD_OFFSET = 5;
+const OVERSCAN_COUNT = 2;
 
 const DataTable = ({
   data,
@@ -33,49 +34,34 @@ const DataTable = ({
   const [colOrder, setColOrder] = useState([]);
   const tableStyles = {};
 
-  const [visibleData, setVisibleData] = useState([]);
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [horizontal, setHorizontal] = useState({ start: 0, end: pageWidth });
+
   const [vertical, setVertical] = useState({ start: 0, end: pageHeight });
+  const [horizontal, setHorizontal] = useState({ start: 0, end: pageWidth });
+  const [visibleData, setVisibleData] = useState([]);
 
   useEffect(() => {
-    const startIndex = Math.floor(scrollTop / rowHeight);
+    const base = Math.floor(scrollTop / rowHeight);
+    const startIndex = base - OVERSCAN_COUNT > 0 ? base - OVERSCAN_COUNT : base;
+    const endIndex = base + pageHeight + OVERSCAN_COUNT;
+    setVertical({ start: startIndex, end: endIndex });
+  }, [scrollTop, rowHeight]);
 
-    // take care around the edges
-    const sIndex =
-      startIndex > data.length - pageHeight
-        ? data.length - pageHeight
-        : startIndex;
-    const endIndex = Math.min(
-      startIndex + pageHeight + LOAD_OFFSET,
-      data.length
+  useEffect(() => {
+    const base = Math.floor(scrollLeft / colWidth);
+    const startIndex = base - OVERSCAN_COUNT > 0 ? base - OVERSCAN_COUNT : base;
+    const endIndex = base + pageWidth + OVERSCAN_COUNT;
+    setHorizontal({ start: startIndex, end: endIndex });
+  }, [scrollLeft, colWidth]);
+
+  useEffect(() => {
+    setVisibleData(
+      data
+        .slice(vertical.start, vertical.end)
+        .map((row) => row.slice(horizontal.start, horizontal.end))
     );
-    setVertical((e) => ({ start: sIndex, end: endIndex }));
-  }, [scrollTop, data, pageHeight]);
-
-  useEffect(() => {
-    const startIndex = Math.floor(scrollLeft / colWidth);
-
-    // take care around the edges
-    const sIndex =
-      startIndex > data[0].length - pageWidth
-        ? data.length - pageWidth
-        : startIndex;
-    const endIndex = Math.min(
-      startIndex + pageWidth + LOAD_OFFSET,
-      data[0].length
-    );
-    setHorizontal({ start: sIndex, end: endIndex });
-  }, [scrollLeft, data, pageWidth]);
-
-  useEffect(() => {
-    const shown = [...data]
-      .slice(vertical.start, vertical.end)
-      .map((row) => row.slice(horizontal.start, horizontal.end));
-
-    setVisibleData(shown);
-  }, [vertical, horizontal, data]);
+  }, [vertical, horizontal]);
 
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);
@@ -83,9 +69,22 @@ const DataTable = ({
   };
 
   if (height) {
-    tableStyles.maxHeight = `${height}px`;
-    tableStyles.maxWidth = `${width}px`;
+    tableStyles.height = `${height}px`;
+    tableStyles.width = `${width}px`;
   }
+
+  useEffect(() => {
+    if (data && data[0]) {
+      setColOrder(data[0].map((e) => e.column));
+    }
+  }, [data]);
+
+  const innerWidth =
+    visibleData &&
+    visibleData[0] &&
+    (visibleData[0].length + OVERSCAN_COUNT) * colWidth;
+
+  const innerHeight = (visibleData.length + OVERSCAN_COUNT) * rowHeight;
 
   return (
     <div className="duckTableContainer">
@@ -96,18 +95,26 @@ const DataTable = ({
         onScroll={handleScroll}
       >
         {!headless && (
-          <DataTableHeader colOrder={colOrder} stickyHeader={stickyHeader} />
+          <DataTableHeader
+            colOrder={colOrder}
+            stickyHeader={stickyHeader}
+            rowHeight={rowHeight}
+            colWidth={colWidth}
+            width={innerWidth}
+          />
         )}
         <div
           className="duckTableBody"
           style={{
-            height: `${data.length * rowHeight}px`,
-            width: `${data[0].length * colWidth}px`,
-            transform: `translate(${scrollLeft}px, ${scrollTop}px)`,
+            height: `${innerHeight}px`,
+            width: `${innerWidth}px`,
+            transform: `translate(${horizontal.start * colWidth}px, ${
+              vertical.start * rowHeight
+            }px)`,
           }}
         >
           {visibleData &&
-            Array.isArray(data) &&
+            Array.isArray(visibleData) &&
             visibleData.map((row, rowIndex) => (
               <DataTableRow key={rowIndex}>
                 {row.map((col, colIndex) => (
