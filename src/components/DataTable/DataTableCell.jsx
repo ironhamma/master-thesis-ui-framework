@@ -1,16 +1,7 @@
-import useVisibility from "../../hooks/useVisibility";
-
-const DataTableCell = ({ colIndex, rowIndex }) => {
-  const [ref, entry] = useVisibility({
-    threshold: 0.5,
-    root: document.getElementById('duckDataTable'),
-    rootMargin: "50px",
-  });
+const DataTableCell = ({ value, height, width }) => {
   return (
-    <div ref={ref} className="duckTableCell">
-      {entry && entry.isIntersecting
-        ? `row: ${rowIndex} col: ${colIndex}`
-        : null}
+    <div className="duckTableCell" style={{ width, height }}>
+      {value}
     </div>
   );
 };

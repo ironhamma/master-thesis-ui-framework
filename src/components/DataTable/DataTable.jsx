@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DataTableHeader from "./DataTableHeader";
 import DataTableRow from "./DataTableRow";
 import DataTableCell from "./DataTableCell";
+
+const LOAD_OFFSET = 5;
+const OVERSCAN_COUNT = 2;
 
 const DataTable = ({
   data,
   columns,
   height,
-  width = false,
+  rowHeight,
+  colWidth,
+  width = 1800,
   fixedColumns = false,
   fixedRow = false,
   headless = false,
@@ -24,36 +29,101 @@ const DataTable = ({
   checked = false,
   stickyHeader = false,
 }) => {
+  const pageHeight = Math.floor(height / rowHeight);
+  const pageWidth = Math.floor(width / colWidth);
   const [colOrder, setColOrder] = useState([]);
   const tableStyles = {};
 
+  const [scrollTop, setScrollTop] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const [vertical, setVertical] = useState({ start: 0, end: pageHeight });
+  const [horizontal, setHorizontal] = useState({ start: 0, end: pageWidth });
+  const [visibleData, setVisibleData] = useState([]);
+
+  useEffect(() => {
+    const base = Math.floor(scrollTop / rowHeight);
+    const startIndex = base - OVERSCAN_COUNT > 0 ? base - OVERSCAN_COUNT : base;
+    const endIndex = base + pageHeight + OVERSCAN_COUNT;
+    setVertical({ start: startIndex, end: endIndex });
+  }, [scrollTop, rowHeight]);
+
+  useEffect(() => {
+    const base = Math.floor(scrollLeft / colWidth);
+    const startIndex = base - OVERSCAN_COUNT > 0 ? base - OVERSCAN_COUNT : base;
+    const endIndex = base + pageWidth + OVERSCAN_COUNT;
+    setHorizontal({ start: startIndex, end: endIndex });
+  }, [scrollLeft, colWidth]);
+
+  useEffect(() => {
+    setVisibleData(
+      data
+        .slice(vertical.start, vertical.end)
+        .map((row) => row.slice(horizontal.start, horizontal.end))
+    );
+  }, [vertical, horizontal]);
+
+  const handleScroll = (e) => {
+    setScrollTop(e.target.scrollTop);
+    setScrollLeft(e.target.scrollLeft);
+  };
+
   if (height) {
-    tableStyles.maxHeight = `${height}px`;
+    tableStyles.height = `${height}px`;
+    tableStyles.width = `${width}px`;
   }
 
   useEffect(() => {
-    if (columns && Array.isArray(columns)) {
-      const cols = [];
-      for (let col = 0; col < columns.length; col++) {
-        if (!columns[col].order) {
-          cols.push(columns[col].column);
-        }
-      }
-      setColOrder(cols);
+    if (data && data[0]) {
+      setColOrder(data[0].map((e) => e.column));
     }
-  }, []);
+  }, [data]);
+
+  const innerWidth =
+    visibleData &&
+    visibleData[0] &&
+    (visibleData[0].length + OVERSCAN_COUNT) * colWidth;
+
+  const innerHeight = (visibleData.length + OVERSCAN_COUNT) * rowHeight;
 
   return (
     <div className="duckTableContainer">
-      <div id="duckDataTable" className="duckTable" style={tableStyles}>
-        {!headless && <DataTableHeader colOrder={colOrder} stickyHeader={stickyHeader} />}
-        <div className="duckTableBody">
-          {data &&
-            Array.isArray(data) &&
-            data.map((row, rowIndex) => (
-              <DataTableRow>
-                {colOrder.map((col, colIndex) => (
-                  <DataTableCell colIndex={colIndex} rowIndex={rowIndex} />
+      <div
+        id="duckDataTable"
+        className="duckTable"
+        style={tableStyles}
+        onScroll={handleScroll}
+      >
+        {!headless && (
+          <DataTableHeader
+            colOrder={colOrder}
+            stickyHeader={stickyHeader}
+            rowHeight={rowHeight}
+            colWidth={colWidth}
+            width={innerWidth}
+          />
+        )}
+        <div
+          className="duckTableBody"
+          style={{
+            height: `${innerHeight}px`,
+            width: `${innerWidth}px`,
+            transform: `translate(${horizontal.start * colWidth}px, ${
+              vertical.start * rowHeight
+            }px)`,
+          }}
+        >
+          {visibleData &&
+            Array.isArray(visibleData) &&
+            visibleData.map((row, rowIndex) => (
+              <DataTableRow key={rowIndex}>
+                {row.map((col, colIndex) => (
+                  <DataTableCell
+                    value={col.value}
+                    key={col.id}
+                    width={colWidth}
+                    height={rowHeight}
+                  />
                 ))}
               </DataTableRow>
             ))}

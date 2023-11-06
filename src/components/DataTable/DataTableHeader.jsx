@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 
-const DataTableHeader = ({ colOrder, stickyHeader }) => {
+const DataTableHeader = ({
+  colOrder,
+  stickyHeader,
+  rowHeight,
+  colWidth,
+  width,
+}) => {
   const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
@@ -8,7 +14,6 @@ const DataTableHeader = ({ colOrder, stickyHeader }) => {
       return;
     }
     const onScroll = (e) => {
-      console.log(e.target.scrollLeft);
       setScrollLeft(e.target.scrollLeft);
     };
     document
@@ -22,29 +27,43 @@ const DataTableHeader = ({ colOrder, stickyHeader }) => {
   }, [scrollLeft, stickyHeader]);
 
   return (
-    <div className={`duckTableHead ${stickyHeader && "duckTableHeadSticky"}`}>
+    <div
+      className={`duckTableHead ${stickyHeader && "duckTableHeadSticky"}`}
+      style={{ width }}
+    >
       {stickyHeader ? (
         <>
-          <div className="duckTableHeaderRow duckTableHeaderRowSticky">
+          <div
+            className="duckTableHeaderRow duckTableHeaderRowSticky"
+            style={{ height: rowHeight, width: width }}
+          >
             {colOrder.map((e) => (
               <div
                 className="duckTableHeaderCell"
-                style={{ transform: `translateX(-${scrollLeft}px)` }}
+                style={{
+                  transform: `translateX(-${scrollLeft}px)`,
+                  width: colWidth,
+                }}
               >
                 {e}
               </div>
             ))}
           </div>
-          <div className="duckTableHeaderRow">
+          <div className="duckTableHeaderRow" style={{ height: rowHeight }}>
             {colOrder.map((e) => (
-              <div className="duckTableHeaderCell"></div>
+              <div
+                className="duckTableHeaderCell"
+                style={{ width: colWidth }}
+              ></div>
             ))}
           </div>
         </>
       ) : (
-        <div className="duckTableHeaderRow">
+        <div className="duckTableHeaderRow" style={{ height: rowHeight }}>
           {colOrder.map((e) => (
-            <div className="duckTableHeaderCell">{e}</div>
+            <div className="duckTableHeaderCell" style={{ width: colWidth }}>
+              {e}
+            </div>
           ))}
         </div>
       )}

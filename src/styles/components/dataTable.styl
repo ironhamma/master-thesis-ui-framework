@@ -9,8 +9,6 @@
 
     .duckTable{
         width 100%
-        display: flex
-        flex-direction: column
         overflow: auto
 
         /* width & height of scrollbars */
@@ -35,12 +33,10 @@
 
         .duckTableHead{
             display: flex
-            flex-direction: column
             width: 100%
 
             .duckTableHeaderRow{
                 display: flex
-                width: 100%
                 position: relative
             
                 .duckTableHeaderCell{
@@ -48,12 +44,8 @@
                     align-items: center
                     justify-content: flex-start
                     font-weight: 800
-                    padding: 0 8px
                     border-bottom: 2px solid $primary_dark
                     border-right: 1px solid $primary_dark
-
-                    min-width: 8rem // TODO: REMOVE
-                    min-height: 70px // TODO: REMOVE
                 }
 
                 &Sticky{
@@ -62,6 +54,7 @@
                     left: 0
                     overflow: hidden
                     z-index: 1
+                    display: -webkit-box
 
                     .duckTableHeaderCell{
                         background-color: $primary_light    
@@ -74,12 +67,12 @@
             display: flex
             flex-direction: column
             width: 100%
+            will-change: transform
             position: relative
 
             .duckTableRow{
                 display: flex
                 width: 100%
-                position: relative
 
                 .duckTableCell{
                     display: flex
@@ -88,9 +81,7 @@
                     padding: 0 8px
                     border-bottom: 1px solid $primary_dark
                     border-right: 1px solid $primary_dark
-                    
-                    min-width: 8rem // TODO: REMOVE
-                    min-height: 5em  // TODO: REMOVE
+                    overflow: hidden
                 }
             }
         }  

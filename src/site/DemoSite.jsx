@@ -162,6 +162,8 @@ const DemoSite = () => {
           sortable={featureFlags.sortable}
           valueChangeable={featureFlags.valueChangeable}
           checkedCellStyle={featureFlags.checkedCellStyle}
+          rowHeight={100}
+          colWidth={100}
         />
       </Card>
     </div>
