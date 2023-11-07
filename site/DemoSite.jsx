@@ -1,13 +1,13 @@
 import { useState } from "react";
-import Button from "../components/Button";
-import Card from "../components/Card/Card";
-import DataTable from "../components/DataTable/DataTable";
-import Heading from "../components/Heading/Heading";
-import { generateMockTable } from "../components/generateMockTable";
-import { useMessages } from "../hooks/useMessages";
+import Button from "../src/components/Button";
+import Card from "../src/components/Card/Card";
+import DataTable from "../src/components/DataTable/DataTable";
+import Heading from "../src/components/Heading";
+import { generateMockTable } from "../src/components/generateMockTable";
+import { useTheme } from "../src/hooks/useTheme";
 
 const DemoSite = () => {
-  const { addMessage } = useMessages();
+  const { toggleMode } = useTheme();
 
   const { data: mockTableData, columns: mockTableColumns } = generateMockTable(
     100,
@@ -26,10 +26,6 @@ const DemoSite = () => {
     checkedCellStyle: false,
   });
 
-  const add = () => {
-    addMessage({ text: "Test message" });
-  };
-
   const flipFlag = (name) => {
     const curr = { ...featureFlags };
     curr[name] = !curr[name];
@@ -38,12 +34,27 @@ const DemoSite = () => {
 
   return (
     <div>
-      <Card className="mb-2">
-        <Heading>Hello, welcome to my Diplomaterv Frontend Library!</Heading>
-      </Card>
-      <Card className="mb-2">
+      <Heading type="h1">
+        H1 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      <Heading type="h2">
+        H2 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      <Heading type="h3">
+        H3 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      <Heading type="h4">
+        H4 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      <Heading type="h5">
+        H5 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      <Heading type="h6">
+        H6 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </Heading>
+      {/* <Card className="mb-2">
         <Heading className="mb-2">This is a Card with a button</Heading>
-        <Button onClick={add}>Push me</Button>
+        <Button onClick={() => toggleMode()}>Push me</Button>
       </Card>
       <Card className="mb-2">
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -165,7 +176,7 @@ const DemoSite = () => {
           rowHeight={100}
           colWidth={100}
         />
-      </Card>
+      </Card> */}
     </div>
   );
 };

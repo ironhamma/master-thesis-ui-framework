@@ -1,0 +1,71 @@
+import React from "react";
+import PropTypes from "prop-types";
+import {
+  StyledHeading1,
+  StyledHeading2,
+  StyledHeading3,
+  StyledHeading4,
+  StyledHeading5,
+  StyledHeading6,
+} from "./styles";
+
+const Heading = ({ text, type, color, children, ...props }) => {
+  switch (type) {
+    case "h1":
+      return (
+        <StyledHeading1 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading1>
+      );
+    case "h2":
+      return (
+        <StyledHeading2 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading2>
+      );
+    case "h3":
+      return (
+        <StyledHeading3 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading3>
+      );
+    case "h4":
+      return (
+        <StyledHeading4 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading4>
+      );
+    case "h5":
+      return (
+        <StyledHeading5 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading5>
+      );
+    case "h6":
+      return (
+        <StyledHeading6 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading6>
+      );
+    default:
+      return (
+        <StyledHeading1 {...props} style={{ color }}>
+          {text ? text : children}
+        </StyledHeading1>
+      );
+  }
+};
+
+Heading.propTypes = {
+  type: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6"]),
+  text: PropTypes.string,
+  color: PropTypes.string,
+};
+
+Heading.defaultProps = {
+  type: "h1",
+  text: "",
+  color: "",
+};
+
+export default Heading;
