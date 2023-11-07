@@ -5,6 +5,8 @@ import DataTable from "../src/components/DataTable/DataTable";
 import Heading from "../src/components/Heading";
 import { generateMockTable } from "../src/components/generateMockTable";
 import { useTheme } from "../src/hooks/useTheme";
+import Article from "../src/components/Article";
+import Aside from "../src/components/Aside";
 
 const DemoSite = () => {
   const { toggleMode } = useTheme();
@@ -52,6 +54,31 @@ const DemoSite = () => {
       <Heading type="h6">
         H6 Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </Heading>
+      <Article>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
+          officiis cum quas, consequatur modi maxime aspernatur eaque magnam
+          odio totam deserunt aut id harum dolore sapiente ex similique,
+          corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
+          reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Doloremque officiis cum quas, consequatur modi
+          maxime aspernatur eaque magnam odio totam deserunt aut id harum dolore
+          sapiente ex similique, corrupti esse eligendi! Impedit tempora non
+          consequuntur tenetur quo reiciendis possimus beatae. Lorem ipsum
+          dolor, sit amet consectetur adipisicing elit. Doloremque officiis cum
+          quas, consequatur modi maxime aspernatur eaque magnam odio totam
+          deserunt aut id harum dolore sapiente ex similique, corrupti esse
+          eligendi! Impedit tempora non consequuntur tenetur quo reiciendis
+          possimus beatae.
+        </p>
+        <Aside>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
+          officiis cum quas, consequatur modi maxime aspernatur eaque magnam
+          odio totam deserunt aut id harum dolore sapiente ex similique,
+          corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
+          reiciendis possimus beatae.
+        </Aside>
+      </Article>
       {/* <Card className="mb-2">
         <Heading className="mb-2">This is a Card with a button</Heading>
         <Button onClick={() => toggleMode()}>Push me</Button>

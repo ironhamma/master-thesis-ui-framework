@@ -1,4 +1,5 @@
 import React from "react";
+import './override.css';
 
 import { ThemeProvider } from "styled-components";
 import { ThemeContextProvider, useTheme } from "../src/hooks/useTheme";

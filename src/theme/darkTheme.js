@@ -211,19 +211,35 @@ export const darkTheme = {
   },
   spacing: {
     padding: {
-      none: "",
-      small: "",
-      medium: "",
-      large: "",
-      xlarge: "",
+      none: 0,
+      small: 8,
+      medium: 16,
+      large: 24,
+      xlarge: 32,
     },
     margin: {
-      none: "",
-      small: "",
-      medium: "",
-      large: "",
-      xlarge: "",
+      none: 0,
+      small: 8,
+      medium: 16,
+      large: 24,
+      xlarge: 32,
     },
+  },
+  border: {
+    radius: {
+      sharp: 0,
+      small: 4,
+      medium: 8,
+      large: 16,
+    },
+  },
+  flex: {
+    gap: {
+      none: 0,
+      small: 4,
+      medium: 8,
+      large: 16
+    }
   },
   transition: {
     delay: {

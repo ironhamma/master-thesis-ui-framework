@@ -1,10 +1,10 @@
 export const lightTheme = {
   colors: {
     primary: {
-      main: "",
-      light: "",
-      dark: "",
-      text: "",
+      main: "#308885",
+      light: "#40B5B1",
+      dark: "#1B4B4A",
+      text: "#FFFFFF",
     },
     secondary: {
       main: "",
@@ -211,19 +211,35 @@ export const lightTheme = {
   },
   spacing: {
     padding: {
-      none: "",
-      small: "",
-      medium: "",
-      large: "",
-      xlarge: "",
+      none: 0,
+      small: 8,
+      medium: 16,
+      large: 24,
+      xlarge: 32,
     },
     margin: {
-      none: "",
-      small: "",
-      medium: "",
-      large: "",
-      xlarge: "",
+      none: 0,
+      small: 8,
+      medium: 16,
+      large: 24,
+      xlarge: 32,
     },
+  },
+  border: {
+    radius: {
+      sharp: 0,
+      small: 4,
+      medium: 8,
+      large: 16,
+    },
+  },
+  flex: {
+    gap: {
+      none: 0,
+      small: 4,
+      medium: 8,
+      large: 16
+    }
   },
   transition: {
     delay: {
