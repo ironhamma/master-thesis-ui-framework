@@ -10,9 +10,6 @@ import Article from "./index";
 export default {
   title: "Article",
   component: Article,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {
     text: { control: "text" },

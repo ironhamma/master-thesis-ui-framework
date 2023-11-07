@@ -1,10 +1,10 @@
 export const darkTheme = {
   colors: {
     primary: {
-      main: "",
-      light: "",
-      dark: "",
-      text: "",
+      main: "#6FB1D8",
+      light: "#9FCBE5",
+      dark: "#163B50",  
+      text: "#eff6fb",
     },
     secondary: {
       main: "",

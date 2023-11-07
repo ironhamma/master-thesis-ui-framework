@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
+import '../src/styles/reset.css'
 import { ThemeContextProvider, useTheme } from "../src/hooks/useTheme.jsx";
 import { ThemeProvider } from "styled-components";
 
