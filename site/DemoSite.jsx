@@ -39,6 +39,7 @@ const DemoSite = () => {
     <div>
       <Header
         title="Front-end UI lib"
+        logoSrc="/react.svg"
         items={[
           { name: "Link", href: "#" },
           { name: "Link", href: "#" },
@@ -46,6 +47,19 @@ const DemoSite = () => {
         ]}
         sticky
       />
+      <Header>
+        <Header.Title title="Front-end UI lib" />
+        <Header.Logo logoSrc="/react.svg" />
+        <Header.Navigation
+          items={[
+            { name: "Link", href: "#" },
+            { name: "Link", href: "#" },
+            { name: "Link", href: "#" },
+          ]}
+          style={{ marginLeft: "auto" }}
+        />
+        <Header.Title title="Another Text" />
+      </Header>
       <Heading type="h1">
         H1 Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </Heading>

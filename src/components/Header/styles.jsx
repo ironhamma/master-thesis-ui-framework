@@ -40,3 +40,8 @@ export const StyledNavA = styled.a`
   font-family: ${({ theme }) => theme.typography.general.fontFamily};
   font-size: 18px;
 `;
+
+export const StyledLogo = styled.img`
+  max-width: 200px;
+  max-height: 50px;
+`;
