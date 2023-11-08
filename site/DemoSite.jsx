@@ -10,9 +10,10 @@ import Aside from "../src/components/Aside";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import Section from "../src/components/Section";
+import Hero from "../src/components/Hero";
 
 const DemoSite = () => {
-  const { toggleMode } = useTheme();
+  const { toggleMode, theme } = useTheme();
 
   const { data: mockTableData, columns: mockTableColumns } = generateMockTable(
     100,
@@ -39,17 +40,7 @@ const DemoSite = () => {
 
   return (
     <div>
-      <Header
-        title="Front-end UI lib"
-        logoSrc="/react.svg"
-        items={[
-          { name: "Link", href: "#" },
-          { name: "Link", href: "#" },
-          { name: "Link", href: "#" },
-        ]}
-        sticky
-      />
-      <Header>
+      <Header sticky>
         <Header.Title title="Front-end UI lib" />
         <Header.Logo logoSrc="/react.svg" />
         <Header.Navigation
@@ -62,6 +53,10 @@ const DemoSite = () => {
         />
         <Header.Title title="Another Text" />
       </Header>
+      <Hero image="bg.jpg">
+        <Heading type="h1" color={theme.colors.primary.text}>Dipterv Front-end UI Library</Heading>
+        <Heading type="h3" color={theme.colors.primary.text}>This will be my thesis!</Heading>
+      </Hero>
       <Section title="Headings">
         <Heading type="h1">
           H1 Lorem ipsum dolor sit amet consectetur adipisicing elit.

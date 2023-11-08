@@ -13,43 +13,43 @@ const Heading = ({ text, type, color, children, ...props }) => {
   switch (type) {
     case "h1":
       return (
-        <StyledHeading1 {...props} style={{ color }}>
+        <StyledHeading1 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading1>
       );
     case "h2":
       return (
-        <StyledHeading2 {...props} style={{ color }}>
+        <StyledHeading2 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading2>
       );
     case "h3":
       return (
-        <StyledHeading3 {...props} style={{ color }}>
+        <StyledHeading3 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading3>
       );
     case "h4":
       return (
-        <StyledHeading4 {...props} style={{ color }}>
+        <StyledHeading4 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading4>
       );
     case "h5":
       return (
-        <StyledHeading5 {...props} style={{ color }}>
+        <StyledHeading5 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading5>
       );
     case "h6":
       return (
-        <StyledHeading6 {...props} style={{ color }}>
+        <StyledHeading6 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading6>
       );
     default:
       return (
-        <StyledHeading1 {...props} style={{ color }}>
+        <StyledHeading1 {...props} style={{ color, ...props.style }}>
           {text || children}
         </StyledHeading1>
       );

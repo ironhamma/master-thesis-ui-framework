@@ -10,6 +10,7 @@ const DarkToggle = styled.div`
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
+  z-index: 100;
 `;
 
 const DarkModeToggle = ({ onClick }) => {

@@ -12,6 +12,7 @@ dist
 dist-ssr
 docs
 *.local
+public/video
 
 # Editor directories and files
 .vscode/*
