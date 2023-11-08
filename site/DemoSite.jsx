@@ -8,6 +8,7 @@ import { useTheme } from "../src/hooks/useTheme";
 import Article from "../src/components/Article";
 import Aside from "../src/components/Aside";
 import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
 
 const DemoSite = () => {
   const { toggleMode } = useTheme();
@@ -273,6 +274,21 @@ const DemoSite = () => {
           reiciendis possimus beatae.
         </Aside>
       </Article>
+      <Footer
+        logoSrc="/react.svg"
+        items={[
+          { name: "Link", href: "#" },
+          { name: "Link", href: "#" },
+          { name: "Link", href: "#" },
+        ]}
+        copyRight="Example.inc ©"
+        contact={{
+          author: "John Doe",
+          address: "Street 1, City, Country",
+          email: "example@example.com",
+          phone: "+36 123-4567",
+        }}
+      />
       {/* <Card className="mb-2">
         <Heading className="mb-2">This is a Card with a button</Heading>
         <Button onClick={() => toggleMode()}>Push me</Button>

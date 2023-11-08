@@ -132,11 +132,7 @@ const Navigation = ({ items, children, ...props }) => {
   );
 };
 
-
-
-Header.Navigation = Navigation;
-
-Header.Navigation.propTypes = {
+Navigation.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -145,6 +141,8 @@ Header.Navigation.propTypes = {
   ),
 };
 
-Header.Navigation.defaultProps = {
+Navigation.defaultProps = {
   items: [],
 };
+
+Header.Navigation = Navigation;
