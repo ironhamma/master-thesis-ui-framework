@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../src/components/Button";
 import Card from "../src/components/Card/Card";
-import DataTable from "../src/components/DataTable/DataTable";
+import DataTable from "../src/components/DataTable";
 import Heading from "../src/components/Heading";
 import { generateMockTable } from "../src/components/generateMockTable";
 import { useTheme } from "../src/hooks/useTheme";
@@ -54,8 +54,12 @@ const DemoSite = () => {
         <Header.Title title="Another Text" />
       </Header>
       <Hero image="bg.jpg">
-        <Heading type="h1" color={theme.colors.primary.text}>Dipterv Front-end UI Library</Heading>
-        <Heading type="h3" color={theme.colors.primary.text}>This will be my thesis!</Heading>
+        <Heading type="h1" color={theme.colors.primary.text}>
+          Dipterv Front-end UI Library
+        </Heading>
+        <Heading type="h3" color={theme.colors.primary.text}>
+          This will be my thesis!
+        </Heading>
       </Hero>
       <Section title="Headings">
         <Heading type="h1">
@@ -277,129 +281,7 @@ const DemoSite = () => {
           </Aside>
         </Article>
       </Section>
-      <Footer
-        logoSrc="/react.svg"
-        items={[
-          { name: "Link", href: "#" },
-          { name: "Link", href: "#" },
-          { name: "Link", href: "#" },
-        ]}
-        copyRight="Example.inc ©"
-        contact={{
-          author: "John Doe",
-          address: "Street 1, City, Country",
-          email: "example@example.com",
-          phone: "+36 123-4567",
-        }}
-      />
-      {/* <Card className="mb-2">
-        <Heading className="mb-2">This is a Card with a button</Heading>
-        <Button onClick={() => toggleMode()}>Push me</Button>
-      </Card>
-      <Card className="mb-2">
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div>
-            <input
-              type="checkbox"
-              id="stickyHeader"
-              value={featureFlags.stickyHeader}
-              onChange={() => {
-                flipFlag("stickyHeader");
-              }}
-            />
-            <label htmlFor="stickyHeader">stickyHeader</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="headless"
-              value={featureFlags.headless}
-              onChange={() => {
-                flipFlag("headless");
-              }}
-            />
-            <label htmlFor="headless">headless</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="groupable"
-              value={featureFlags.groupable}
-              onChange={() => {
-                flipFlag("groupable");
-              }}
-            />
-            <label htmlFor="groupable">groupable</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="resizable"
-              value={featureFlags.resizable}
-              onChange={() => {
-                flipFlag("resizable");
-              }}
-            />
-            <label htmlFor="resizable">resizable</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="cellPopup"
-              value={featureFlags.cellPopup}
-              onChange={() => {
-                flipFlag("cellPopup");
-              }}
-            />
-            <label htmlFor="cellPopup">cellPopup</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="hasCheckboxes"
-              value={featureFlags.hasCheckboxes}
-              onChange={() => {
-                flipFlag("hasCheckboxes");
-              }}
-            />
-            <label htmlFor="hasCheckboxes">hasCheckboxes</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="sortable"
-              value={featureFlags.sortable}
-              onChange={() => {
-                flipFlag("sortable");
-              }}
-            />
-            <label htmlFor="sortable">sortable</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="valueChangeable"
-              value={featureFlags.valueChangeable}
-              onChange={() => {
-                flipFlag("valueChangeable");
-              }}
-            />
-            <label htmlFor="valueChangeable">valueChangeable</label>
-          </div>
-          <div>
-            <input
-              type="checkbox"
-              id="checkedCellStyle"
-              value={featureFlags.checkedCellStyle}
-              onChange={() => {
-                flipFlag("checkedCellStyle");
-              }}
-            />
-            <label htmlFor="checkedCellStyle">checkedCellStyle</label>
-          </div>
-        </div>
-      </Card>
-      <Card width="full">
+      <Section title="Data Table">
         <DataTable
           height={700}
           data={mockTableData}
@@ -416,7 +298,22 @@ const DemoSite = () => {
           rowHeight={100}
           colWidth={100}
         />
-      </Card> */}
+      </Section>
+      <Footer
+        logoSrc="/react.svg"
+        items={[
+          { name: "Link", href: "#" },
+          { name: "Link", href: "#" },
+          { name: "Link", href: "#" },
+        ]}
+        copyRight="Example.inc ©"
+        contact={{
+          author: "John Doe",
+          address: "Street 1, City, Country",
+          email: "example@example.com",
+          phone: "+36 123-4567",
+        }}
+      />
     </div>
   );
 };

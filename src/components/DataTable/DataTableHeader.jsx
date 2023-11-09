@@ -1,4 +1,9 @@
 import { useEffect, useState } from "react";
+import {
+  StyledDataTableHead,
+  StyledDataTableHeadRow,
+  StyledDataTableHeaderCell,
+} from "./styles";
 
 const DataTableHeader = ({
   colOrder,
@@ -27,18 +32,19 @@ const DataTableHeader = ({
   }, [scrollLeft, stickyHeader]);
 
   return (
-    <div
+    <StyledDataTableHead
       className={`duckTableHead ${stickyHeader && "duckTableHeadSticky"}`}
       style={{ width }}
     >
       {stickyHeader ? (
         <>
-          <div
+          <StyledDataTableHeadRow
+            sticky
             className="duckTableHeaderRow duckTableHeaderRowSticky"
             style={{ height: rowHeight, width: width }}
           >
             {colOrder.map((e) => (
-              <div
+              <StyledDataTableHeaderCell
                 className="duckTableHeaderCell"
                 style={{
                   transform: `translateX(-${scrollLeft}px)`,
@@ -46,28 +52,37 @@ const DataTableHeader = ({
                 }}
               >
                 {e}
-              </div>
+              </StyledDataTableHeaderCell>
             ))}
-          </div>
-          <div className="duckTableHeaderRow" style={{ height: rowHeight }}>
+          </StyledDataTableHeadRow>
+          <StyledDataTableHeadRow
+            className="duckTableHeaderRow"
+            style={{ height: rowHeight }}
+          >
             {colOrder.map((e) => (
-              <div
+              <StyledDataTableHeaderCell
                 className="duckTableHeaderCell"
                 style={{ width: colWidth }}
-              ></div>
+              ></StyledDataTableHeaderCell>
             ))}
-          </div>
+          </StyledDataTableHeadRow>
         </>
       ) : (
-        <div className="duckTableHeaderRow" style={{ height: rowHeight }}>
+        <StyledDataTableHeadRow
+          className="duckTableHeaderRow"
+          style={{ height: rowHeight }}
+        >
           {colOrder.map((e) => (
-            <div className="duckTableHeaderCell" style={{ width: colWidth }}>
+            <StyledDataTableHeaderCell
+              className="duckTableHeaderCell"
+              style={{ width: colWidth }}
+            >
               {e}
-            </div>
+            </StyledDataTableHeaderCell>
           ))}
-        </div>
+        </StyledDataTableHeadRow>
       )}
-    </div>
+    </StyledDataTableHead>
   );
 };
 

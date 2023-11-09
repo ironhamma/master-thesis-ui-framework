@@ -1,5 +1,7 @@
+import { StyledDatatableRow } from "./styles";
+
 const DataTableRow = ({ children }) => {
-  return <div className="duckTableRow">{children}</div>;
+  return <StyledDatatableRow className="duckTableRow">{children}</StyledDatatableRow>;
 };
 
 export default DataTableRow;

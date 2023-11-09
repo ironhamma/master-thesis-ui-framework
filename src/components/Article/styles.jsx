@@ -10,5 +10,6 @@ export const StyledArticle = styled.article`
   gap: ${({ theme }) => theme.flex.gap.medium}px;
   text-align: justify;
   color: ${({ theme, mode }) => theme.colors[mode].text};
+  font-family: ${({ theme }) => theme.typography.general.fontFamily};
 `;
 

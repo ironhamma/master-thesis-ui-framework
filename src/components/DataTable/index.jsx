@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import DataTableHeader from "./DataTableHeader";
 import DataTableRow from "./DataTableRow";
 import DataTableCell from "./DataTableCell";
+import { StyledDataTable, StyledDataTableBody, StyledDataTableContainer } from "./styles";
 
 const LOAD_OFFSET = 5;
 const OVERSCAN_COUNT = 2;
@@ -87,10 +89,9 @@ const DataTable = ({
   const innerHeight = (visibleData.length + OVERSCAN_COUNT) * rowHeight;
 
   return (
-    <div className="duckTableContainer">
-      <div
+    <StyledDataTableContainer>
+      <StyledDataTable
         id="duckDataTable"
-        className="duckTable"
         style={tableStyles}
         onScroll={handleScroll}
       >
@@ -103,8 +104,7 @@ const DataTable = ({
             width={innerWidth}
           />
         )}
-        <div
-          className="duckTableBody"
+        <StyledDataTableBody
           style={{
             height: `${innerHeight}px`,
             width: `${innerWidth}px`,
@@ -127,10 +127,31 @@ const DataTable = ({
                 ))}
               </DataTableRow>
             ))}
-        </div>
-      </div>
-    </div>
+        </StyledDataTableBody>
+      </StyledDataTable>
+    </StyledDataTableContainer>
   );
 };
+
+DataTable.propTypes = {
+  data: PropTypes.array,
+  height: PropTypes.number,
+  rowHeight: PropTypes.number,
+  colWidth: PropTypes.number,
+  width: PropTypes.number,
+  headless: PropTypes.bool,
+  stickyHeader: PropTypes.bool
+}
+
+DataTable.defaultProps = {
+  data: [],
+  height: 700,
+  rowHeight: 100,
+  colWidth: 100,
+  width: 1800,
+  headless: false,
+  stickyHeader: false
+}
+
 
 export default DataTable;
