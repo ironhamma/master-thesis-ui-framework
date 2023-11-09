@@ -1,10 +1,10 @@
 export const darkTheme = {
   colors: {
     primary: {
-      main: "#6FB1D8",
-      light: "#9FCBE5",
-      dark: "#163B50",  
-      text: "#eff6fb",
+      main: "#141414",
+      light: "#2B303B",
+      dark: "#262626",
+      text: "#D3D3D3",
     },
     secondary: {
       main: "",
@@ -47,7 +47,7 @@ export const darkTheme = {
       secondary: "",
       disabled: "",
     },
-    background: "#0D2330",
+    background: "#141414",
     action: {
       background: "#6FB1D8",
       color: "#040B11",
@@ -71,7 +71,7 @@ export const darkTheme = {
   typography: {
     general: {
       fontFamily: "'Chakra Petch', sans-serif",
-      color: "#EFF6FB",
+      color: "#D3D3D3",
     },
     h1: {
       fontFamily: "'Chakra Petch', sans-serif",

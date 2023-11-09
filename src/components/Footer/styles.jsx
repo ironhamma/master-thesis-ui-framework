@@ -16,13 +16,13 @@ export const StyledSecondaryFooter = styled.div`
 `;
 
 export const StyledFooterContactText = styled.p`
-  color: ${({ theme }) => theme.colors.primary.dark};
+  color: ${({ theme }) => theme.colors.primary.text};
   font-family: ${({ theme }) => theme.typography.general.fontFamily};
   font-size: 16px;
 `;
 
 export const StyledFooterContactLink = styled.a`
-  color: ${({ theme }) => theme.colors.primary.dark};
+  color: ${({ theme }) => theme.colors.primary.text};
   font-family: ${({ theme }) => theme.typography.general.fontFamily};
   font-size: 16px;
 `;

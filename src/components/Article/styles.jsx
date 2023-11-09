@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const StyledArticle = styled.article`
-  background-color: ${({ theme, mode }) => theme.colors[mode].main};
+  background-color: ${({ theme, mode }) => theme.colors[mode].dark};
   padding: ${({ theme }) => theme.spacing.padding.medium}px;
   margin: ${({ theme }) => theme.spacing.margin.small}px;
   border-radius: ${({ theme }) => theme.border.radius.medium}px;

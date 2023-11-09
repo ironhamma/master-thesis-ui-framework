@@ -53,11 +53,14 @@ const DemoSite = () => {
         />
         <Header.Title title="Another Text" />
       </Header>
-      <Hero image="bg.jpg">
-        <Heading type="h1" color={theme.colors.primary.text}>
+      <Hero image="bg.jpg" onClick={() => toggleMode()}>
+        <Heading
+          type="h1"
+          color="#fff"
+        >
           Dipterv Front-end UI Library
         </Heading>
-        <Heading type="h3" color={theme.colors.primary.text}>
+        <Heading type="h3" color="#fff">
           This will be my thesis!
         </Heading>
       </Hero>
@@ -82,138 +85,6 @@ const DemoSite = () => {
         </Heading>
       </Section>
       <Section title="Articles">
-        <Article>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-          officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-          odio totam deserunt aut id harum dolore sapiente ex similique,
-          corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-          reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Doloremque officiis cum quas, consequatur modi
-          maxime aspernatur eaque magnam odio totam deserunt aut id harum dolore
-          sapiente ex similique, corrupti esse eligendi! Impedit tempora non
-          consequuntur tenetur quo reiciendis possimus beatae. Lorem ipsum
-          dolor, sit amet consectetur adipisicing elit. Doloremque officiis cum
-          quas, consequatur modi maxime aspernatur eaque magnam odio totam
-          deserunt aut id harum dolore sapiente ex similique, corrupti esse
-          eligendi! Impedit tempora non consequuntur tenetur quo reiciendis
-          possimus beatae.
-        </Article>
-        <Article>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Doloremque officiis cum quas, consequatur modi
-            maxime aspernatur eaque magnam odio totam deserunt aut id harum
-            dolore sapiente ex similique, corrupti esse eligendi! Impedit
-            tempora non consequuntur tenetur quo reiciendis possimus beatae.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </p>
-          <Aside>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </Aside>
-        </Article>
-        <Article>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Doloremque officiis cum quas, consequatur modi
-            maxime aspernatur eaque magnam odio totam deserunt aut id harum
-            dolore sapiente ex similique, corrupti esse eligendi! Impedit
-            tempora non consequuntur tenetur quo reiciendis possimus beatae.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </p>
-          <Aside orientation="left">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </Aside>
-        </Article>
-        <Article>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-          officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-          odio totam deserunt aut id harum dolore sapiente ex similique,
-          corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-          reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Doloremque officiis cum quas, consequatur modi
-          maxime aspernatur eaque magnam odio totam deserunt aut id harum dolore
-          sapiente ex similique, corrupti esse eligendi! Impedit tempora non
-          consequuntur tenetur quo reiciendis possimus beatae. Lorem ipsum
-          dolor, sit amet consectetur adipisicing elit. Doloremque officiis cum
-          quas, consequatur modi maxime aspernatur eaque magnam odio totam
-          deserunt aut id harum dolore sapiente ex similique, corrupti esse
-          eligendi! Impedit tempora non consequuntur tenetur quo reiciendis
-          possimus beatae.
-        </Article>
-        <Article>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Doloremque officiis cum quas, consequatur modi
-            maxime aspernatur eaque magnam odio totam deserunt aut id harum
-            dolore sapiente ex similique, corrupti esse eligendi! Impedit
-            tempora non consequuntur tenetur quo reiciendis possimus beatae.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </p>
-          <Aside>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </Aside>
-        </Article>
-        <Article>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae. Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Doloremque officiis cum quas, consequatur modi
-            maxime aspernatur eaque magnam odio totam deserunt aut id harum
-            dolore sapiente ex similique, corrupti esse eligendi! Impedit
-            tempora non consequuntur tenetur quo reiciendis possimus beatae.
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </p>
-          <Aside orientation="left">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-            officiis cum quas, consequatur modi maxime aspernatur eaque magnam
-            odio totam deserunt aut id harum dolore sapiente ex similique,
-            corrupti esse eligendi! Impedit tempora non consequuntur tenetur quo
-            reiciendis possimus beatae.
-          </Aside>
-        </Article>
         <Article>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
           officiis cum quas, consequatur modi maxime aspernatur eaque magnam

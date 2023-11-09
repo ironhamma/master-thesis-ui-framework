@@ -1,10 +1,10 @@
 export const lightTheme = {
   colors: {
     primary: {
-      main: "#308885",
-      light: "#40B5B1",
-      dark: "#1B4B4A",
-      text: "#FFFFFF",
+      main: "#FFC107",
+      light: "#FFECB3",
+      dark: "#FFA000",
+      text: "#212121",
     },
     secondary: {
       main: "",
@@ -47,7 +47,7 @@ export const lightTheme = {
       secondary: "",
       disabled: "",
     },
-    background: "#95DBD9",
+    background: "#CFD8DC",
     action: {
       background: "#2A7976",
       color: "#FFFFFF",
