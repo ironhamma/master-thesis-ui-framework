@@ -5,7 +5,7 @@ export const StyledDataTableContainer = styled.div`
   box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid ${({ theme }) => theme.colors.primary.dark};
   border-radius: ${({ theme }) => theme.border.radius.medium};
-  background-color: ${({ theme }) => theme.colors.primary.light};
+  background-color: ${({ theme }) => theme.colors.primary.main};
   overflow: hidden;
   margin: ${({ theme }) => theme.spacing.margin.medium}px auto;
 `;
@@ -44,7 +44,7 @@ export const StyledDataTableHeaderCell = styled.div`
     border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
     color: ${({ theme }) => theme.colors.primary.text};
     font-family: ${({ theme }) => theme.typography.general.fontFamily};
-    background-color: ${({ theme }) => theme.colors.primary.light};
+    background-color: ${({ theme }) => theme.colors.primary.main};
 `;
 
 export const StyledDataTableBody = styled.div`

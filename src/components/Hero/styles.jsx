@@ -31,6 +31,7 @@ export const StyledHeroContent = styled.hgroup`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
+  color: ${({theme}) => theme.colors.primary.text};
 `;
 
 export const StyledHeroVideo = styled.video`

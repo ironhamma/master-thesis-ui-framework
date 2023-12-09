@@ -8,8 +8,6 @@ const ThemeContext = React.createContext();
 let themeElement = document.createElement("style");
 document.head.appendChild(themeElement);
 
-// TODO: Might be good to add a dev only theme editor
-
 export const ThemeContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(lightTheme);
   const [mode, setMode] = useState(THEME_MODES.LIGHT);

@@ -5,8 +5,8 @@ const DarkToggle = styled.div`
   position: absolute;
   top: 8px;
   left: 8px;
-  background-color: ${({ theme }) => theme.colors.action.background};
-  color: ${({ theme }) => theme.colors.action.color};
+  background-color: #fce300;
+  color: black;
   padding: 8px;
   border-radius: 4px;
   cursor: pointer;
