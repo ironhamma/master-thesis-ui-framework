@@ -1,5 +1,11 @@
 module.exports = {
-  extends: ["airbnb", "prettier", "prettier/react"],
+  extends: [
+    "airbnb",
+    "prettier",
+    "prettier/react",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended"
+  ],
   plugins: ["prettier", "react-hooks"],
   rules: {
     "no-console": "off",

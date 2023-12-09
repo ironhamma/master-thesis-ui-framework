@@ -1,8 +1,10 @@
+import { StyledDataTableCell } from "./styles";
+
 const DataTableCell = ({ value, height, width }) => {
   return (
-    <div className="duckTableCell" style={{ width, height }}>
+    <StyledDataTableCell className="duckTableCell" style={{ width, height }}>
       {value}
-    </div>
+    </StyledDataTableCell>
   );
 };
 
