@@ -1,6 +1,4 @@
 import { useState, React } from "react";
-import Button from "../src/components/Button";
-import Card from "../src/components/Card/Card";
 import DataTable from "../src/components/DataTable";
 import Heading from "../src/components/Heading";
 import { generateMockTable } from "../src/components/generateMockTable";

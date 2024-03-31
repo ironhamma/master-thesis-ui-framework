@@ -1,17 +1,26 @@
 import { useEffect, useState } from "react";
 import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  resetServerContext,
+} from "@hello-pangea/dnd";
+import {
   StyledDataTableHead,
   StyledDataTableHeadRow,
   StyledDataTableHeaderCell,
+  StyledDataTableHeaderHandle,
 } from "./styles";
+import DataTableHeaderCell from "./DataTableHeaderCell";
 
-const DataTableHeader = ({
+function DataTableHeader({
   colOrder,
   stickyHeader,
   rowHeight,
   colWidth,
   width,
-}) => {
+  onDragEnd,
+}) {
   const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
@@ -31,59 +40,75 @@ const DataTableHeader = ({
         .removeEventListener("scroll", onScroll);
   }, [scrollLeft, stickyHeader]);
 
+  resetServerContext();
+
   return (
-    <StyledDataTableHead
-      className={`duckTableHead ${stickyHeader && "duckTableHeadSticky"}`}
-      style={{ width }}
-    >
-      {stickyHeader ? (
-        <>
-          <StyledDataTableHeadRow
-            sticky
-            className="duckTableHeaderRow duckTableHeaderRowSticky"
-            style={{ height: rowHeight, width: width }}
-          >
-            {colOrder.map((e) => (
-              <StyledDataTableHeaderCell
-                className="duckTableHeaderCell"
-                style={{
-                  transform: `translateX(-${scrollLeft}px)`,
-                  width: colWidth,
-                }}
-              >
-                {e}
-              </StyledDataTableHeaderCell>
-            ))}
-          </StyledDataTableHeadRow>
-          <StyledDataTableHeadRow
-            className="duckTableHeaderRow"
-            style={{ height: rowHeight }}
-          >
-            {colOrder.map((e) => (
-              <StyledDataTableHeaderCell
-                className="duckTableHeaderCell"
-                style={{ width: colWidth }}
-              ></StyledDataTableHeaderCell>
-            ))}
-          </StyledDataTableHeadRow>
-        </>
-      ) : (
-        <StyledDataTableHeadRow
-          className="duckTableHeaderRow"
-          style={{ height: rowHeight }}
-        >
-          {colOrder.map((e) => (
-            <StyledDataTableHeaderCell
-              className="duckTableHeaderCell"
-              style={{ width: colWidth }}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <StyledDataTableHead
+        className={`duckTableHead ${stickyHeader && "duckTableHeadSticky"}`}
+        style={{ width }}
+      >
+        {stickyHeader ? (
+          <>
+            <StyledDataTableHeadRow
+              sticky
+              className="duckTableHeaderRow duckTableHeaderRowSticky"
+              style={{ height: rowHeight, width }}
             >
-              {e}
-            </StyledDataTableHeaderCell>
-          ))}
-        </StyledDataTableHeadRow>
-      )}
-    </StyledDataTableHead>
+              {colOrder.map((e) => (
+                <StyledDataTableHeaderCell
+                  className="duckTableHeaderCell"
+                  style={{
+                    transform: `translateX(-${scrollLeft}px)`,
+                    width: colWidth,
+                  }}
+                >
+                  {e}
+                </StyledDataTableHeaderCell>
+              ))}
+            </StyledDataTableHeadRow>
+            <StyledDataTableHeadRow
+              className="duckTableHeaderRow"
+              style={{ height: rowHeight }}
+            >
+              {colOrder.map((e) => (
+                <StyledDataTableHeaderCell
+                  className="duckTableHeaderCell"
+                  style={{ width: colWidth }}
+                />
+              ))}
+            </StyledDataTableHeadRow>
+          </>
+        ) : (
+          <Droppable droppableId="droppableHeader2" direction="horizontal">
+            {(provided, snapshot) => (
+              <div>
+                <StyledDataTableHeadRow
+                  className="duckTableHeaderRow"
+                  style={{ height: rowHeight }}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  {colOrder.map((e, colIndex) => (
+                    <Draggable key={e} draggableId={e} index={colIndex}>
+                      {(colProvided, colSnapshot) => (
+                        <DataTableHeaderCell
+                          value={e}
+                          colWidth={colWidth}
+                          colProvided={colProvided}
+                          hoveredOver={snapshot.isDraggingOver}
+                        />
+                      )}
+                    </Draggable>
+                  ))}
+                </StyledDataTableHeadRow>
+              </div>
+            )}
+          </Droppable>
+        )}
+      </StyledDataTableHead>
+    </DragDropContext>
   );
-};
+}
 
 export default DataTableHeader;

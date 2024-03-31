@@ -1,7 +1,11 @@
 import { useEffect, useState, React } from "react";
 import PropTypes from "prop-types";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { unstable_batchedUpdates } from "react-dom";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  resetServerContext,
+} from "@hello-pangea/dnd";
 import DataTableHeader from "./DataTableHeader";
 import DataTableRow from "./DataTableRow";
 import {
@@ -83,6 +87,19 @@ function DataTable({
     setVisibleData(dataWithId.slice(vertical.start, vertical.end));
   }, [vertical, horizontal, dataWithId]);
 
+  useEffect(() => {
+    // sort dataWithId to match colOrder
+    if (dataWithId && dataWithId[0] && !groupable) {
+      const sortedData = dataWithId.map((row) => {
+        const newRow = row.row.sort(
+          (a, b) => colOrder.indexOf(a.column) - colOrder.indexOf(b.column),
+        );
+        return { row: newRow, id: row.id };
+      });
+      setDataWithId(sortedData);
+    }
+  }, [colOrder]);
+
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);
     setScrollLeft(e.target.scrollLeft);
@@ -124,79 +141,22 @@ function DataTable({
     setDataWithId(items);
   };
 
-  if (reorderable) {
-    return (
-      <StyledDataTableContainer>
-        <StyledDataTable
-          id="duckDataTable"
-          style={tableStyles}
-          onScroll={handleScroll}
-        >
-          {!headless && (
-            <DataTableHeader
-              colOrder={colOrder}
-              stickyHeader={stickyHeader}
-              rowHeight={rowHeight}
-              colWidth={colWidth}
-              width={innerWidth}
-            />
-          )}
-          <StyledDataTableBody
-            style={{
-              height: `${innerHeight}px`,
-              width: `${innerWidth}px`,
-              transform: `translate(${horizontal.start * colWidth}px, ${
-                vertical.start * rowHeight
-              }px)`,
-            }}
-          >
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="droppableRow" direction="vertical">
-                {(provided, snapshot) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    {visibleData &&
-                      Array.isArray(visibleData) &&
-                      visibleData.map((row, rowIndex) => (
-                        <Draggable
-                          key={`${row.id}_row_id`}
-                          draggableId={`${row.id}_row_id`}
-                          index={rowIndex}
-                        >
-                          {(draggableProvided, draggableSnapshot) => (
-                            <div
-                              ref={draggableProvided.innerRef}
-                              {...draggableProvided.draggableProps}
-                              style={{
-                                ...draggableProvided.draggableProps.style,
-                                backgroundColor: draggableSnapshot.isDragging
-                                  ? "lightblue"
-                                  : "white",
-                              }}
-                            >
-                              <DataTableRow
-                                key={rowIndex}
-                                rowData={row.row}
-                                horizontal={horizontal}
-                                colWidth={colWidth}
-                                rowHeight={rowHeight}
-                                dragHandleProps={
-                                  draggableProvided.dragHandleProps
-                                }
-                                draggedOver={snapshot.isDraggingOver}
-                              />
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </StyledDataTableBody>
-        </StyledDataTable>
-      </StyledDataTableContainer>
+  const onColDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(colOrder);
+    const [reorderedItem] = items.splice(
+      result.source.index + horizontal.start,
+      1,
     );
-  }
+    items.splice(result.destination.index + horizontal.start, 0, reorderedItem);
+
+    setColOrder(items);
+  };
+
+  resetServerContext();
 
   return (
     <StyledDataTableContainer>
@@ -212,6 +172,7 @@ function DataTable({
             rowHeight={rowHeight}
             colWidth={colWidth}
             width={innerWidth}
+            onDragEnd={onColDragEnd}
           />
         )}
         <StyledDataTableBody
@@ -223,26 +184,48 @@ function DataTable({
             }px)`,
           }}
         >
-          {visibleData &&
-            Array.isArray(visibleData) &&
-            visibleData.map((row, rowIndex) => (
-              <DataTableRow
-                key={rowIndex}
-                rowData={row}
-                horizontal={horizontal}
-                colWidth={colWidth}
-                rowHeight={rowHeight}
-              >
-                {/* {row.map((col, colIndex) => (
-                  <DataTableCell
-                    value={col.value}
-                    key={col.id}
-                    width={colWidth}
-                    height={rowHeight}
-                  />
-                ))} */}
-              </DataTableRow>
-            ))}
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppableRow2" direction="vertical">
+              {(provided, snapshot) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {visibleData &&
+                    Array.isArray(visibleData) &&
+                    visibleData.map((row, rowIndex) => (
+                      <Draggable
+                        key={`${row.id}_row_id`}
+                        draggableId={`${row.id}_row_id`}
+                        index={rowIndex}
+                      >
+                        {(draggableProvided, draggableSnapshot) => (
+                          <div
+                            ref={draggableProvided.innerRef}
+                            {...draggableProvided.draggableProps}
+                            style={{
+                              ...draggableProvided.draggableProps.style,
+                              backgroundColor: draggableSnapshot.isDragging
+                                ? "lightblue"
+                                : "white",
+                            }}
+                          >
+                            <DataTableRow
+                              key={rowIndex}
+                              rowData={row.row}
+                              horizontal={horizontal}
+                              colWidth={colWidth}
+                              rowHeight={rowHeight}
+                              dragHandleProps={
+                                draggableProvided.dragHandleProps
+                              }
+                              draggedOver={snapshot.isDraggingOver}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </StyledDataTableBody>
       </StyledDataTable>
     </StyledDataTableContainer>

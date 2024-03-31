@@ -79,8 +79,4 @@ function DataTableRow({
   );
 }
 
-/* const DataTableRow = ({ children }) => {
-  return <StyledDatatableRow className="duckTableRow">{children}</StyledDatatableRow>;
-}; */
-
 export default DataTableRow;

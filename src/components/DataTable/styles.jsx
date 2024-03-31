@@ -47,6 +47,7 @@ export const StyledDataTableHeaderCell = styled.div`
   color: ${({ theme }) => theme.colors.primary.text};
   font-family: ${({ theme }) => theme.typography.general.fontFamily};
   background-color: ${({ theme }) => theme.colors.primary.main};
+  position: relative;
 `;
 
 export const StyledDataTableBody = styled.div`
@@ -59,7 +60,8 @@ export const StyledDataTableBody = styled.div`
 
 export const StyledDatatableRow = styled.div`
   display: flex;
-  width: 100%;
+  flex-wrap: nowrap;
+  width: max-content;
   position: relative;
   transition: transform 0.2s;
 `;
@@ -95,4 +97,11 @@ export const StyledDataTableRowHandle = styled.div`
   left: -30px;
 `;
 
-// TODO: CHECK TYPES
+export const StyledDataTableHeaderHandle = styled.div`
+  background-color: lightblue;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+`;
