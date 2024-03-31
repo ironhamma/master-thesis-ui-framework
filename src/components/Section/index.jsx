@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { StyledSection, StyledSectionTitle } from "./style";
 
 const Section = ({ title, text, children, ...props }) => {
@@ -14,9 +14,9 @@ const Section = ({ title, text, children, ...props }) => {
   );
 };
 
-Section.PropTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
+Section.propTypes = {
+  title: propTypes.string,
+  text: propTypes.string,
 };
 
 Section.defaultProps = {

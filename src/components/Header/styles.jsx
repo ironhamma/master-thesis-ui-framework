@@ -3,8 +3,8 @@ import { styled } from "styled-components";
 export const StyledHeader = styled.header`
   width: 100%;
   min-height: 50px;
-  position: ${({sticky}) => sticky ? 'sticky' : 'relative'};
-  ${({sticky}) => sticky && 'top: 0; left: 0; z-index: 20;'}
+  position: ${({ sticky }) => (sticky ? "sticky" : "relative")};
+  ${({ sticky }) => sticky && "top: 0; left: 0; z-index: 20;"}
   background-color: ${({ theme }) => theme.colors.primary.dark};
   padding: ${({ theme }) => theme.spacing.padding.small}px;
   display: flex;
@@ -13,9 +13,9 @@ export const StyledHeader = styled.header`
 `;
 
 export const StyledHeaderTitle = styled.span`
-color: ${({ theme }) => theme.colors.primary.text};
-font-family: ${({ theme }) => theme.typography.general.fontFamily};
-font-size: 24px;
+  color: ${({ theme }) => theme.colors.primary.text};
+  font-family: ${({ theme }) => theme.typography.general.fontFamily};
+  font-size: 24px;
 `;
 
 export const StyledNav = styled.nav`

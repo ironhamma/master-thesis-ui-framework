@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { StyledHero, StyledHeroContainer, StyledHeroContent } from "./styles";
 import { StyledHeroVideo } from "./styles";
 
@@ -16,8 +16,8 @@ const Hero = ({ image, video, children, ...props }) => {
 };
 
 Hero.propTypes = {
-  image: PropTypes.string,
-  video: PropTypes.string,
+  image: propTypes.string,
+  video: propTypes.string,
 };
 
 Hero.defaultProps = {

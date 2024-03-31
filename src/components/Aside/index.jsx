@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { StyledAside } from "./styles";
 import {
   ORIENTATION,
@@ -8,18 +8,18 @@ import {
   THEME_COLOR_MODES_LIST,
 } from "../../helpers/consts";
 
-const Aside = ({ mode, text, orientation, children, ...props }) => {
+function Aside({ mode, text, orientation, children, ...props }) {
   return (
     <StyledAside mode={mode} orientation={orientation}>
       {text || children}
     </StyledAside>
   );
-};
+}
 
 Aside.propTypes = {
-  text: PropTypes.string,
-  mode: PropTypes.oneOf(THEME_COLOR_MODES_LIST),
-  orientation: PropTypes.oneOf(ORIENTATION_LIST),
+  text: propTypes.string,
+  mode: propTypes.oneOf(THEME_COLOR_MODES_LIST),
+  orientation: propTypes.oneOf(ORIENTATION_LIST),
 };
 
 Aside.defaultProps = {

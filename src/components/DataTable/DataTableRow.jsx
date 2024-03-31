@@ -13,6 +13,8 @@ function DataTableRow({
   rowHeight,
   dragHandleProps,
   draggedOver,
+  reorderable,
+  colWidths,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -41,7 +43,7 @@ function DataTableRow({
                   <DataTableCell
                     value={col.value}
                     key={col.id}
-                    width={colWidth}
+                    width={colWidths[col.column]}
                     height={rowHeight}
                     background="#eee"
                   />
@@ -55,10 +57,14 @@ function DataTableRow({
     <StyledDatatableRow
       className="duckTableRow"
       onMouseEnter={() => {
-        setHovered(true);
+        if (reorderable) {
+          setHovered(true);
+        }
       }}
       onMouseLeave={() => {
-        setHovered(false);
+        if (reorderable) {
+          setHovered(false);
+        }
       }}
       style={{
         transform: `translateX(${hovered && !draggedOver ? "30px" : "0"})`,
@@ -71,7 +77,7 @@ function DataTableRow({
         <DataTableCell
           value={col.value}
           key={col.id}
-          width={colWidth}
+          width={colWidths[col.column]}
           height={rowHeight}
         />
       ))}

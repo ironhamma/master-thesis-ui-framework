@@ -42,12 +42,11 @@ export const StyledDataTableHeaderCell = styled.div`
   justify-content: center;
   font-weight: 800;
   padding: 0 8px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primary.dark};
-  border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
   color: ${({ theme }) => theme.colors.primary.text};
   font-family: ${({ theme }) => theme.typography.general.fontFamily};
   background-color: ${({ theme }) => theme.colors.primary.main};
   position: relative;
+  height: 100%;
 `;
 
 export const StyledDataTableBody = styled.div`
@@ -104,4 +103,10 @@ export const StyledDataTableHeaderHandle = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
+`;
+
+export const StyledResizeable = styled.div`
+  border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary.dark};
+  position: relative;
 `;

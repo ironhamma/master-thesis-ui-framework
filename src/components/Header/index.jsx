@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {
   StyledHeader,
   StyledHeaderTitle,
@@ -10,18 +10,18 @@ import {
   StyledNavUlLi,
 } from "./styles";
 
-const Header = ({ sticky, logoSrc, title, items, children, ...props }) => {
+function Header({ sticky, logoSrc, title, items, children, ...props }) {
   const subComponentList = Object.keys(Header);
   const [isModular, setIsModular] = useState(false);
 
   useEffect(() => {
-    subComponentList.forEach((key) => {
-      return React.Children.map(children, (child) => {
+    subComponentList.forEach((key) =>
+      React.Children.map(children, (child) => {
         if (child && child.type && child.type.name && !isModular) {
           setIsModular(true);
         }
-      });
-    });
+      }),
+    );
   }, []);
 
   if (!isModular) {
@@ -32,8 +32,8 @@ const Header = ({ sticky, logoSrc, title, items, children, ...props }) => {
         {items && items.length !== 0 && (
           <StyledNav>
             <StyledNavUl>
-              {items.map((item) => (
-                <StyledNavUlLi>
+              {items.map((item, index) => (
+                <StyledNavUlLi key={`${index}_${item.name}`}>
                   <StyledNavA href={item.href}>{item.name}</StyledNavA>
                 </StyledNavUlLi>
               ))}
@@ -49,17 +49,17 @@ const Header = ({ sticky, logoSrc, title, items, children, ...props }) => {
       {children}
     </StyledHeader>
   );
-};
+}
 
 Header.propTypes = {
-  title: PropTypes.string,
-  sticky: PropTypes.bool,
-  logoSrc: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired,
-    })
+  title: propTypes.string,
+  sticky: propTypes.bool,
+  logoSrc: propTypes.string,
+  items: propTypes.arrayOf(
+    propTypes.shape({
+      name: propTypes.string.isRequired,
+      href: propTypes.string.isRequired,
+    }),
   ),
 };
 
@@ -72,17 +72,17 @@ Header.defaultProps = {
 
 export default Header;
 
-const Logo = ({ logoSrc, children, ...props }) => {
+function Logo({ logoSrc, children, ...props }) {
   return (
     <div {...props}>
       {logoSrc && logoSrc.length !== 0 && <StyledLogo src={logoSrc} />}
       {children}
     </div>
   );
-};
+}
 
 Logo.propTypes = {
-  logoSrc: PropTypes.string,
+  logoSrc: propTypes.string,
 };
 
 Logo.defaultProps = {
@@ -91,7 +91,7 @@ Logo.defaultProps = {
 
 Header.Logo = Logo;
 
-const Title = ({ title, children, ...props }) => {
+function Title({ title, children, ...props }) {
   return (
     <div {...props}>
       {title && title.length !== 0 && (
@@ -100,10 +100,10 @@ const Title = ({ title, children, ...props }) => {
       {children}
     </div>
   );
-};
+}
 
 Title.propTypes = {
-  title: PropTypes.string,
+  title: propTypes.string,
 };
 
 Title.defaultProps = {
@@ -112,15 +112,15 @@ Title.defaultProps = {
 
 Header.Title = Title;
 
-const Navigation = ({ items, children, ...props }) => {
+function Navigation({ items, children, ...props }) {
   return (
     <div {...props}>
       {items && items.length !== 0 && (
         <StyledNav>
           <StyledNavUl>
             {items &&
-              items.map((item) => (
-                <StyledNavUlLi>
+              items.map((item, index) => (
+                <StyledNavUlLi key={`${index}_${item.name}`}>
                   <StyledNavA href={item.href}>{item.name}</StyledNavA>
                 </StyledNavUlLi>
               ))}
@@ -130,14 +130,14 @@ const Navigation = ({ items, children, ...props }) => {
       {children}
     </div>
   );
-};
+}
 
 Navigation.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired,
-    })
+  items: propTypes.arrayOf(
+    propTypes.shape({
+      name: propTypes.string.isRequired,
+      href: propTypes.string.isRequired,
+    }),
   ),
 };
 

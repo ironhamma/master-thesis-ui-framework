@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {
   StyledFooterCopyR,
   StyledFooter,
@@ -14,18 +14,18 @@ import {
   StyledFooterContactLink,
 } from "./styles";
 
-const Footer = ({ contact, logoSrc, items, copyRight, children, ...props }) => {
+function Footer({ contact, logoSrc, items, copyRight, children, ...props }) {
   const subComponentList = Object.keys(Footer);
   const [isModular, setIsModular] = useState(false);
 
   useEffect(() => {
-    subComponentList.forEach((key) => {
-      return React.Children.map(children, (child) => {
+    subComponentList.forEach((key) =>
+      React.Children.map(children, (child) => {
         if (child && child.type && child.type.name && !isModular) {
           setIsModular(true);
         }
-      });
-    });
+      }),
+    );
   }, []);
 
   if (!isModular) {
@@ -65,8 +65,8 @@ const Footer = ({ contact, logoSrc, items, copyRight, children, ...props }) => {
           {items && items.length !== 0 && (
             <StyledFooterNav>
               <StyledFooterNavUl>
-                {items.map((item) => (
-                  <StyledFooterNavUlLi>
+                {items.map((item, index) => (
+                  <StyledFooterNavUlLi key={`${index}_${item.name}`}>
                     <StyledFooterA href={item.href}>{item.name}</StyledFooterA>
                   </StyledFooterNavUlLi>
                 ))}
@@ -83,22 +83,22 @@ const Footer = ({ contact, logoSrc, items, copyRight, children, ...props }) => {
       {children}
     </StyledFooterContainer>
   );
-};
+}
 
 Footer.propTypes = {
-  logoSrc: PropTypes.string,
-  copyRight: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired,
-    })
+  logoSrc: propTypes.string,
+  copyRight: propTypes.string,
+  items: propTypes.arrayOf(
+    propTypes.shape({
+      name: propTypes.string.isRequired,
+      href: propTypes.string.isRequired,
+    }),
   ),
-  contact: PropTypes.shape({
-    author: PropTypes.string,
-    address: PropTypes.string,
-    email: PropTypes.string,
-    phone: PropTypes.string,
+  contact: propTypes.shape({
+    author: propTypes.string,
+    address: propTypes.string,
+    email: propTypes.string,
+    phone: propTypes.string,
   }),
 };
 
@@ -111,17 +111,17 @@ Footer.defaultProps = {
 
 export default Footer;
 
-const Logo = ({ logoSrc, children, ...props }) => {
+function Logo({ logoSrc, children, ...props }) {
   return (
     <div {...props}>
       {logoSrc && logoSrc.length !== 0 && <StyledFooterLogo src={logoSrc} />}
       {children}
     </div>
   );
-};
+}
 
 Logo.propTypes = {
-  logoSrc: PropTypes.string,
+  logoSrc: propTypes.string,
 };
 
 Logo.defaultProps = {
@@ -130,15 +130,15 @@ Logo.defaultProps = {
 
 Footer.Logo = Logo;
 
-const Navigation = ({ items, children, ...props }) => {
+function Navigation({ items, children, ...props }) {
   return (
     <div {...props}>
       {items && items.length !== 0 && (
         <StyledFooterNav>
           <StyledFooterNavUl>
             {items &&
-              items.map((item) => (
-                <StyledFooterNavUlLi>
+              items.map((item, index) => (
+                <StyledFooterNavUlLi key={`${index}_${item.name}`}>
                   <StyledFooterA href={item.href}>{item.name}</StyledFooterA>
                 </StyledFooterNavUlLi>
               ))}
@@ -148,14 +148,14 @@ const Navigation = ({ items, children, ...props }) => {
       {children}
     </div>
   );
-};
+}
 
 Navigation.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      href: PropTypes.string.isRequired,
-    })
+  items: propTypes.arrayOf(
+    propTypes.shape({
+      name: propTypes.string.isRequired,
+      href: propTypes.string.isRequired,
+    }),
   ),
 };
 
@@ -165,7 +165,7 @@ Navigation.defaultProps = {
 
 Footer.Navigation = Navigation;
 
-const CopyRight = ({ copyRight, children, ...props }) => {
+function CopyRight({ copyRight, children, ...props }) {
   return (
     <div {...props}>
       {copyRight && copyRight.length !== 0 && (
@@ -174,10 +174,10 @@ const CopyRight = ({ copyRight, children, ...props }) => {
       {children}
     </div>
   );
-};
+}
 
 CopyRight.propTypes = {
-  copyRight: PropTypes.string,
+  copyRight: propTypes.string,
 };
 
 CopyRight.defaultProps = {
@@ -186,7 +186,7 @@ CopyRight.defaultProps = {
 
 Footer.CopyRight = CopyRight;
 
-const Secondary = ({ contact, children, ...props }) => {
+function Secondary({ contact, children, ...props }) {
   return (
     <div {...props}>
       {contact && (
@@ -212,14 +212,14 @@ const Secondary = ({ contact, children, ...props }) => {
       {children}
     </div>
   );
-};
+}
 
 Secondary.propTypes = {
-  contact: PropTypes.shape({
-    author: PropTypes.string,
-    address: PropTypes.string,
-    email: PropTypes.string,
-    phone: PropTypes.string,
+  contact: propTypes.shape({
+    author: propTypes.string,
+    address: propTypes.string,
+    email: propTypes.string,
+    phone: propTypes.string,
   }),
 };
 
@@ -229,13 +229,13 @@ Secondary.defaultProps = {
 
 Footer.Secondary = Secondary;
 
-const Primary = ({ children, ...props }) => {
+function Primary({ children, ...props }) {
   return (
     <StyledFooter modular {...props}>
       {children}
     </StyledFooter>
   );
-};
+}
 
 Primary.propTypes = {};
 

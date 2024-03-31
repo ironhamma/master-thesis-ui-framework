@@ -1,5 +1,5 @@
 import { useEffect, useState, React } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {
   DragDropContext,
   Draggable,
@@ -25,20 +25,9 @@ function DataTable({
   rowHeight,
   colWidth,
   width = 1800,
-  fixedColumns = false,
-  fixedRow = false,
   headless = false,
   groupable = false,
   resizable = false,
-  notResiableColumns = false,
-  notresizeableRows = false,
-  cellPopup = false,
-  rowActions = false,
-  hasCheckboxes = false,
-  sortable = false,
-  nonSortableColumns = false,
-  valueChangeable = false,
-  checked = false,
   stickyHeader = false,
   reorderable = false,
 }) {
@@ -54,6 +43,7 @@ function DataTable({
   const [vertical, setVertical] = useState({ start: 0, end: pageHeight });
   const [horizontal, setHorizontal] = useState({ start: 0, end: pageWidth });
   const [visibleData, setVisibleData] = useState([]);
+  const [colWidths, setColWidths] = useState({});
 
   useEffect(() => {
     if (data) {
@@ -89,6 +79,9 @@ function DataTable({
 
   useEffect(() => {
     // sort dataWithId to match colOrder
+    if (!reorderable) {
+      return;
+    }
     if (dataWithId && dataWithId[0] && !groupable) {
       const sortedData = dataWithId.map((row) => {
         const newRow = row.row.sort(
@@ -98,7 +91,7 @@ function DataTable({
       });
       setDataWithId(sortedData);
     }
-  }, [colOrder]);
+  }, [colOrder, dataWithId, reorderable]);
 
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);
@@ -113,16 +106,27 @@ function DataTable({
   useEffect(() => {
     if (dataWithId && dataWithId[0] && !groupable) {
       setColOrder(dataWithId[0].row.map((e) => e.column));
+      const widths = {};
+      dataWithId[0].row.forEach((col) => {
+        widths[col.column] = colWidth;
+      });
+      setColWidths(widths);
     }
     if (dataWithId && dataWithId[0] && groupable) {
       setColOrder(dataWithId[0].row.groupHead.map((e) => e.column));
+      const widths = {};
+      dataWithId[0].row.groupHead.forEach((col) => {
+        widths[col.column] = colWidth;
+      });
+      setColWidths(widths);
     }
   }, [dataWithId, groupable]);
 
   const innerWidth =
     visibleData &&
     visibleData[0] &&
-    (visibleData[0].length + OVERSCAN_COUNT) * colWidth;
+    visibleData[0].row &&
+    (visibleData[0].row.length + OVERSCAN_COUNT) * colWidth;
 
   const innerHeight = (visibleData.length + OVERSCAN_COUNT) * rowHeight;
 
@@ -158,6 +162,81 @@ function DataTable({
 
   resetServerContext();
 
+  if (reorderable) {
+    return (
+      <StyledDataTableContainer>
+        <StyledDataTable
+          id="duckDataTable"
+          style={tableStyles}
+          onScroll={handleScroll}
+        >
+          {!headless && (
+            <DataTableHeader
+              colOrder={colOrder}
+              stickyHeader={stickyHeader}
+              rowHeight={rowHeight}
+              colWidth={colWidth}
+              width={innerWidth}
+              onDragEnd={onColDragEnd}
+              reorderable={reorderable}
+            />
+          )}
+          <StyledDataTableBody
+            style={{
+              height: `${innerHeight}px`,
+              width: `${innerWidth}px`,
+              transform: `translate(${horizontal.start * colWidth}px, ${
+                vertical.start * rowHeight
+              }px)`,
+            }}
+          >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="droppableRow2" direction="vertical">
+                {(provided, snapshot) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {visibleData &&
+                      Array.isArray(visibleData) &&
+                      visibleData.map((row, rowIndex) => (
+                        <Draggable
+                          key={`${row.id}_row_id`}
+                          draggableId={`${row.id}_row_id`}
+                          index={rowIndex}
+                        >
+                          {(draggableProvided, draggableSnapshot) => (
+                            <div
+                              ref={draggableProvided.innerRef}
+                              {...draggableProvided.draggableProps}
+                              style={{
+                                ...draggableProvided.draggableProps.style,
+                                backgroundColor: draggableSnapshot.isDragging
+                                  ? "lightblue"
+                                  : "white",
+                              }}
+                            >
+                              <DataTableRow
+                                key={rowIndex}
+                                rowData={row.row}
+                                horizontal={horizontal}
+                                colWidth={colWidth}
+                                rowHeight={rowHeight}
+                                dragHandleProps={
+                                  draggableProvided.dragHandleProps
+                                }
+                                draggedOver={snapshot.isDraggingOver}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </StyledDataTableBody>
+        </StyledDataTable>
+      </StyledDataTableContainer>
+    );
+  }
   return (
     <StyledDataTableContainer>
       <StyledDataTable
@@ -173,6 +252,9 @@ function DataTable({
             colWidth={colWidth}
             width={innerWidth}
             onDragEnd={onColDragEnd}
+            reorderable={reorderable}
+            colWidths={colWidths}
+            setColWidths={setColWidths}
           />
         )}
         <StyledDataTableBody
@@ -184,48 +266,19 @@ function DataTable({
             }px)`,
           }}
         >
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppableRow2" direction="vertical">
-              {(provided, snapshot) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {visibleData &&
-                    Array.isArray(visibleData) &&
-                    visibleData.map((row, rowIndex) => (
-                      <Draggable
-                        key={`${row.id}_row_id`}
-                        draggableId={`${row.id}_row_id`}
-                        index={rowIndex}
-                      >
-                        {(draggableProvided, draggableSnapshot) => (
-                          <div
-                            ref={draggableProvided.innerRef}
-                            {...draggableProvided.draggableProps}
-                            style={{
-                              ...draggableProvided.draggableProps.style,
-                              backgroundColor: draggableSnapshot.isDragging
-                                ? "lightblue"
-                                : "white",
-                            }}
-                          >
-                            <DataTableRow
-                              key={rowIndex}
-                              rowData={row.row}
-                              horizontal={horizontal}
-                              colWidth={colWidth}
-                              rowHeight={rowHeight}
-                              dragHandleProps={
-                                draggableProvided.dragHandleProps
-                              }
-                              draggedOver={snapshot.isDraggingOver}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          {visibleData &&
+            Array.isArray(visibleData) &&
+            visibleData.map((row, rowIndex) => (
+              <DataTableRow
+                key={row.id}
+                rowData={row.row}
+                horizontal={horizontal}
+                colWidth={colWidth}
+                rowHeight={rowHeight}
+                reorderable={reorderable}
+                colWidths={colWidths}
+              />
+            ))}
         </StyledDataTableBody>
       </StyledDataTable>
     </StyledDataTableContainer>
@@ -233,13 +286,13 @@ function DataTable({
 }
 
 DataTable.propTypes = {
-  data: PropTypes.array,
-  height: PropTypes.number,
-  rowHeight: PropTypes.number,
-  colWidth: PropTypes.number,
-  width: PropTypes.number,
-  headless: PropTypes.bool,
-  stickyHeader: PropTypes.bool,
+  data: propTypes.array,
+  height: propTypes.number,
+  rowHeight: propTypes.number,
+  colWidth: propTypes.number,
+  width: propTypes.number,
+  headless: propTypes.bool,
+  stickyHeader: propTypes.bool,
 };
 
 DataTable.defaultProps = {

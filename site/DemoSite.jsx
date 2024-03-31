@@ -31,7 +31,7 @@ function DemoSite() {
     sortable: false,
     valueChangeable: false,
     checkedCellStyle: false,
-    reorderable: true,
+    reorderable: false,
   });
 
   const flipFlag = (name) => {

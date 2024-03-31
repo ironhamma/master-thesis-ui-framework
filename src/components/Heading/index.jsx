@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import {
   StyledHeading1,
   StyledHeading2,
@@ -57,9 +57,9 @@ const Heading = ({ text, type, color, children, ...props }) => {
 };
 
 Heading.propTypes = {
-  type: PropTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6"]),
-  text: PropTypes.string,
-  color: PropTypes.string,
+  type: propTypes.oneOf(["h1", "h2", "h3", "h4", "h5", "h6"]),
+  text: propTypes.string,
+  color: propTypes.string,
 };
 
 Heading.defaultProps = {
