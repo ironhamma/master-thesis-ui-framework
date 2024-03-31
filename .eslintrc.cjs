@@ -61,6 +61,7 @@ module.exports = {
     "new-cap": "off",
     "jsx-a11y/mouse-events-have-key-events": "off",
     "consistent-return": "warn",
+    "react/react-in-jsx-scope": "off",
     "no-restricted-globals": [
       "error",
       "addEventListener",

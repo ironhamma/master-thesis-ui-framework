@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, React } from "react";
 import Button from "../src/components/Button";
 import Card from "../src/components/Card/Card";
 import DataTable from "../src/components/DataTable";
@@ -14,25 +14,26 @@ import Hero from "../src/components/Hero";
 import Form from "../src/components/Form";
 import Input from "../src/components/Input";
 
-const DemoSite = () => {
+function DemoSite() {
   const { toggleMode, theme } = useTheme();
 
   const { data: mockTableData, columns: mockTableColumns } = generateMockTable(
     100,
     100,
-    true
+    false,
   );
 
   const [featureFlags, setFeatureFlags] = useState({
     stickyHeader: false,
     headless: false,
-    groupable: true,
+    groupable: false,
     resizable: false,
     cellPopup: false,
     hasCheckboxes: false,
     sortable: false,
     valueChangeable: false,
     checkedCellStyle: false,
+    reorderable: true,
   });
 
   const flipFlag = (name) => {
@@ -57,10 +58,7 @@ const DemoSite = () => {
         <Header.Title title="Another Text" />
       </Header>
       <Hero image="bg.jpg" onClick={() => toggleMode()}>
-        <Heading
-          type="h1"
-          color="#fff"
-        >
+        <Heading type="h1" color="#fff">
           Dipterv Front-end UI Library
         </Heading>
         <Heading type="h3" color="#fff">
@@ -88,9 +86,9 @@ const DemoSite = () => {
         </Heading>
       </Section>
       <Section title="Forms">
-          <Form>
-            <Input label="Name" placeholder="John Doe" />
-          </Form>
+        <Form>
+          <Input label="Name" placeholder="John Doe" />
+        </Form>
       </Section>
       <Section title="Articles">
         <Article>
@@ -176,6 +174,7 @@ const DemoSite = () => {
           checkedCellStyle={featureFlags.checkedCellStyle}
           rowHeight={100}
           colWidth={100}
+          reorderable={featureFlags.reorderable}
         />
       </Section>
       <Footer
@@ -195,6 +194,6 @@ const DemoSite = () => {
       />
     </div>
   );
-};
+}
 
 export default DemoSite;

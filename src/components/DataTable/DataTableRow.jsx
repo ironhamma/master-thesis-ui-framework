@@ -1,44 +1,72 @@
-import { useState } from "react";
+import { useState, React } from "react";
 import DataTableCell from "./DataTableCell";
-import { StyledDataTableGroupToggle, StyledDatatableRow } from "./styles";
+import {
+  StyledDataTableGroupToggle,
+  StyledDataTableRowHandle,
+  StyledDatatableRow,
+} from "./styles";
 
-const DataTableRow = ({rowData, horizontal, colWidth, rowHeight}) => {
+function DataTableRow({
+  rowData,
+  horizontal,
+  colWidth,
+  rowHeight,
+  dragHandleProps,
+  draggedOver,
+}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
   if (rowData.groupHead) {
-    
     return (
       <>
         <StyledDatatableRow className="duckTableRow">
-          <StyledDataTableGroupToggle onClick={() => setIsOpen(!isOpen)}></StyledDataTableGroupToggle>
-          {rowData.groupHead.slice(horizontal.start, horizontal.end).map((col, colIndex) => (
-            <DataTableCell
-            value={col.value}
-            key={col.id}
-            width={colWidth}
-            height={rowHeight}
-            />
+          <StyledDataTableGroupToggle onClick={() => setIsOpen(!isOpen)} />
+          {rowData.groupHead
+            .slice(horizontal.start, horizontal.end)
+            .map((col, colIndex) => (
+              <DataTableCell
+                value={col.value}
+                key={col.id}
+                width={colWidth}
+                height={rowHeight}
+              />
             ))}
         </StyledDatatableRow>
-        {isOpen && rowData.children.map((row, rowIndex) => (
-          <StyledDatatableRow className="duckTableRow">
-            {
-              row.slice(horizontal.start, horizontal.end).map((col, colIndex) => (
+        {isOpen &&
+          rowData.children.map((row, rowIndex) => (
+            <StyledDatatableRow className="duckTableRow">
+              {row
+                .slice(horizontal.start, horizontal.end)
+                .map((col, colIndex) => (
                   <DataTableCell
                     value={col.value}
                     key={col.id}
                     width={colWidth}
                     height={rowHeight}
                     background="#eee"
-                    />
-                ))
-            }
-          </StyledDatatableRow>
-        ))}
+                  />
+                ))}
+            </StyledDatatableRow>
+          ))}
       </>
     );
   }
   return (
-    <StyledDatatableRow className="duckTableRow">{}
+    <StyledDatatableRow
+      className="duckTableRow"
+      onMouseEnter={() => {
+        setHovered(true);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+      }}
+      style={{
+        transform: `translateX(${hovered && !draggedOver ? "30px" : "0"})`,
+      }}
+    >
+      {hovered && !draggedOver && (
+        <StyledDataTableRowHandle {...dragHandleProps} />
+      )}
       {rowData.slice(horizontal.start, horizontal.end).map((col, colIndex) => (
         <DataTableCell
           value={col.value}
@@ -49,7 +77,7 @@ const DataTableRow = ({rowData, horizontal, colWidth, rowHeight}) => {
       ))}
     </StyledDatatableRow>
   );
-};
+}
 
 /* const DataTableRow = ({ children }) => {
   return <StyledDatatableRow className="duckTableRow">{children}</StyledDatatableRow>;

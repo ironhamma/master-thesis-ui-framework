@@ -24,7 +24,9 @@ export const StyledDataTableHeadRow = styled.div`
   display: flex;
   position: relative;
 
-  ${({sticky}) => sticky && `
+  ${({ sticky }) =>
+    sticky &&
+    `
     position: absolute;
     top: 0;
     left: 0;
@@ -35,53 +37,62 @@ export const StyledDataTableHeadRow = styled.div`
 `;
 
 export const StyledDataTableHeaderCell = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    padding: 0 8px;
-    border-bottom: 2px solid ${({ theme }) => theme.colors.primary.dark};
-    border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
-    color: ${({ theme }) => theme.colors.primary.text};
-    font-family: ${({ theme }) => theme.typography.general.fontFamily};
-    background-color: ${({ theme }) => theme.colors.primary.main};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  padding: 0 8px;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primary.dark};
+  border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
+  color: ${({ theme }) => theme.colors.primary.text};
+  font-family: ${({ theme }) => theme.typography.general.fontFamily};
+  background-color: ${({ theme }) => theme.colors.primary.main};
 `;
 
 export const StyledDataTableBody = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    will-change: transform;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  will-change: transform;
+  position: relative;
 `;
 
 export const StyledDatatableRow = styled.div`
-    display: flex;
-    width: 100%;
-    position: relative;
+  display: flex;
+  width: 100%;
+  position: relative;
+  transition: transform 0.2s;
 `;
 
 export const StyledDataTableCell = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8px;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.primary.dark};
-    border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
-    overflow: hidden;
-    color: ${({ theme }) => theme.colors.primary.text};
-    font-family: ${({ theme }) => theme.typography.general.fontFamily};
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.primary.dark};
+  border-right: 1px solid ${({ theme }) => theme.colors.primary.dark};
+  overflow: hidden;
+  color: ${({ theme }) => theme.colors.primary.text};
+  font-family: ${({ theme }) => theme.typography.general.fontFamily};
+`;
 
 export const StyledDataTableGroupToggle = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 10px;
-    height: 100%;
-    transform: translateY(-50%);
-    background-color: ${({ theme }) => theme.colors.primary.text};
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  transform: translateY(-50%);
+  background-color: ${({ theme }) => theme.colors.primary.text};
+`;
 
-`
+export const StyledDataTableRowHandle = styled.div`
+  background-color: lightblue;
+  width: 30px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -30px;
+`;
 
 // TODO: CHECK TYPES

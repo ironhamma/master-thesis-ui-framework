@@ -1,14 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, React } from "react";
 import PropTypes from "prop-types";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { unstable_batchedUpdates } from "react-dom";
 import DataTableHeader from "./DataTableHeader";
 import DataTableRow from "./DataTableRow";
-import DataTableCell from "./DataTableCell";
-import { StyledDataTable, StyledDataTableBody, StyledDataTableContainer } from "./styles";
+import {
+  StyledDataTable,
+  StyledDataTableBody,
+  StyledDataTableContainer,
+} from "./styles";
+import generateUniqueID from "../../helpers/generateID";
 
 const LOAD_OFFSET = 5;
 const OVERSCAN_COUNT = 2;
 
-const DataTable = ({
+function DataTable({
   data,
   columns,
   height,
@@ -30,7 +36,9 @@ const DataTable = ({
   valueChangeable = false,
   checked = false,
   stickyHeader = false,
-}) => {
+  reorderable = false,
+}) {
+  const [dataWithId, setDataWithId] = useState([]);
   const pageHeight = Math.floor(height / rowHeight);
   const pageWidth = Math.floor(width / colWidth);
   const [colOrder, setColOrder] = useState([]);
@@ -42,6 +50,20 @@ const DataTable = ({
   const [vertical, setVertical] = useState({ start: 0, end: pageHeight });
   const [horizontal, setHorizontal] = useState({ start: 0, end: pageWidth });
   const [visibleData, setVisibleData] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      const dataIDs = [];
+      data.forEach((row, rowIndex) => {
+        const rowWithId = {
+          row,
+          id: generateUniqueID(),
+        };
+        dataIDs.push(rowWithId);
+      });
+      setDataWithId(dataIDs);
+    }
+  }, [data]);
 
   useEffect(() => {
     const base = Math.floor(scrollTop / rowHeight);
@@ -58,11 +80,8 @@ const DataTable = ({
   }, [scrollLeft, colWidth]);
 
   useEffect(() => {
-    setVisibleData(
-      data
-        .slice(vertical.start, vertical.end)
-    );
-  }, [vertical, horizontal]);
+    setVisibleData(dataWithId.slice(vertical.start, vertical.end));
+  }, [vertical, horizontal, dataWithId]);
 
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);
@@ -75,13 +94,13 @@ const DataTable = ({
   }
 
   useEffect(() => {
-    if (data && data[0] && !groupable) {
-      setColOrder(data[0].map((e) => e.column));
+    if (dataWithId && dataWithId[0] && !groupable) {
+      setColOrder(dataWithId[0].row.map((e) => e.column));
     }
-    if (data && data[0] && groupable) {
-      setColOrder(data[0].groupHead.map((e) => e.column));
+    if (dataWithId && dataWithId[0] && groupable) {
+      setColOrder(dataWithId[0].row.groupHead.map((e) => e.column));
     }
-  }, [data, groupable]);
+  }, [dataWithId, groupable]);
 
   const innerWidth =
     visibleData &&
@@ -89,6 +108,95 @@ const DataTable = ({
     (visibleData[0].length + OVERSCAN_COUNT) * colWidth;
 
   const innerHeight = (visibleData.length + OVERSCAN_COUNT) * rowHeight;
+
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(dataWithId);
+    const [reorderedItem] = items.splice(
+      result.source.index + vertical.start,
+      1,
+    );
+    items.splice(result.destination.index + vertical.start, 0, reorderedItem);
+
+    setDataWithId(items);
+  };
+
+  if (reorderable) {
+    return (
+      <StyledDataTableContainer>
+        <StyledDataTable
+          id="duckDataTable"
+          style={tableStyles}
+          onScroll={handleScroll}
+        >
+          {!headless && (
+            <DataTableHeader
+              colOrder={colOrder}
+              stickyHeader={stickyHeader}
+              rowHeight={rowHeight}
+              colWidth={colWidth}
+              width={innerWidth}
+            />
+          )}
+          <StyledDataTableBody
+            style={{
+              height: `${innerHeight}px`,
+              width: `${innerWidth}px`,
+              transform: `translate(${horizontal.start * colWidth}px, ${
+                vertical.start * rowHeight
+              }px)`,
+            }}
+          >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable droppableId="droppableRow" direction="vertical">
+                {(provided, snapshot) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {visibleData &&
+                      Array.isArray(visibleData) &&
+                      visibleData.map((row, rowIndex) => (
+                        <Draggable
+                          key={`${row.id}_row_id`}
+                          draggableId={`${row.id}_row_id`}
+                          index={rowIndex}
+                        >
+                          {(draggableProvided, draggableSnapshot) => (
+                            <div
+                              ref={draggableProvided.innerRef}
+                              {...draggableProvided.draggableProps}
+                              style={{
+                                ...draggableProvided.draggableProps.style,
+                                backgroundColor: draggableSnapshot.isDragging
+                                  ? "lightblue"
+                                  : "white",
+                              }}
+                            >
+                              <DataTableRow
+                                key={rowIndex}
+                                rowData={row.row}
+                                horizontal={horizontal}
+                                colWidth={colWidth}
+                                rowHeight={rowHeight}
+                                dragHandleProps={
+                                  draggableProvided.dragHandleProps
+                                }
+                                draggedOver={snapshot.isDraggingOver}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </StyledDataTableBody>
+        </StyledDataTable>
+      </StyledDataTableContainer>
+    );
+  }
 
   return (
     <StyledDataTableContainer>
@@ -118,7 +226,13 @@ const DataTable = ({
           {visibleData &&
             Array.isArray(visibleData) &&
             visibleData.map((row, rowIndex) => (
-              <DataTableRow key={rowIndex} rowData={row} horizontal={horizontal} colWidth={colWidth} rowHeight={rowHeight}>
+              <DataTableRow
+                key={rowIndex}
+                rowData={row}
+                horizontal={horizontal}
+                colWidth={colWidth}
+                rowHeight={rowHeight}
+              >
                 {/* {row.map((col, colIndex) => (
                   <DataTableCell
                     value={col.value}
@@ -133,7 +247,7 @@ const DataTable = ({
       </StyledDataTable>
     </StyledDataTableContainer>
   );
-};
+}
 
 DataTable.propTypes = {
   data: PropTypes.array,
@@ -142,8 +256,8 @@ DataTable.propTypes = {
   colWidth: PropTypes.number,
   width: PropTypes.number,
   headless: PropTypes.bool,
-  stickyHeader: PropTypes.bool
-}
+  stickyHeader: PropTypes.bool,
+};
 
 DataTable.defaultProps = {
   data: [],
@@ -152,8 +266,7 @@ DataTable.defaultProps = {
   colWidth: 100,
   width: 1800,
   headless: false,
-  stickyHeader: false
-}
-
+  stickyHeader: false,
+};
 
 export default DataTable;
