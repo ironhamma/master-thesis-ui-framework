@@ -58,6 +58,7 @@ export const StyledDataTableBody = styled.div`
 export const StyledDatatableRow = styled.div`
     display: flex;
     width: 100%;
+    position: relative;
 `;
 
 export const StyledDataTableCell = styled.div`
@@ -70,6 +71,17 @@ export const StyledDataTableCell = styled.div`
     overflow: hidden;
     color: ${({ theme }) => theme.colors.primary.text};
     font-family: ${({ theme }) => theme.typography.general.fontFamily};
+`
+
+export const StyledDataTableGroupToggle = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    transform: translateY(-50%);
+    background-color: ${({ theme }) => theme.colors.primary.text};
+
 `
 
 // TODO: CHECK TYPES

@@ -1,4 +1,4 @@
-export const generateMockTable = (rows, cols) => {
+export const generateMockTable = (rows, cols, isGrouped = false) => {
   const data = [];
   const columns = [];
 
@@ -8,7 +8,7 @@ export const generateMockTable = (rows, cols) => {
       sortable: false,
       fixed: false,
       width: null,
-      order: null
+      order: null,
     };
     columns.push(column);
   }
@@ -20,10 +20,18 @@ export const generateMockTable = (rows, cols) => {
       rowData.push({
         column: `col-${col}`,
         value: `Row ${row}, Col ${col}`,
-        id: `${row}x${col}`
+        id: `${row}x${col}`,
       });
     }
     data.push(rowData);
+  }
+
+  if (isGrouped) {
+    const oneRow = data[0];
+    data[0] = {
+      groupHead: oneRow,
+      children: [oneRow, oneRow, oneRow],
+    };
   }
 
   return { data, columns };

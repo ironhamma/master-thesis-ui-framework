@@ -11,19 +11,22 @@ import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import Section from "../src/components/Section";
 import Hero from "../src/components/Hero";
+import Form from "../src/components/Form";
+import Input from "../src/components/Input";
 
 const DemoSite = () => {
   const { toggleMode, theme } = useTheme();
 
   const { data: mockTableData, columns: mockTableColumns } = generateMockTable(
     100,
-    100
+    100,
+    true
   );
 
   const [featureFlags, setFeatureFlags] = useState({
     stickyHeader: false,
     headless: false,
-    groupable: false,
+    groupable: true,
     resizable: false,
     cellPopup: false,
     hasCheckboxes: false,
@@ -83,6 +86,11 @@ const DemoSite = () => {
         <Heading type="h6">
           H6 Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </Heading>
+      </Section>
+      <Section title="Forms">
+          <Form>
+            <Input label="Name" placeholder="John Doe" />
+          </Form>
       </Section>
       <Section title="Articles">
         <Article>

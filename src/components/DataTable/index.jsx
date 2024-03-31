@@ -61,7 +61,6 @@ const DataTable = ({
     setVisibleData(
       data
         .slice(vertical.start, vertical.end)
-        .map((row) => row.slice(horizontal.start, horizontal.end))
     );
   }, [vertical, horizontal]);
 
@@ -76,10 +75,13 @@ const DataTable = ({
   }
 
   useEffect(() => {
-    if (data && data[0]) {
+    if (data && data[0] && !groupable) {
       setColOrder(data[0].map((e) => e.column));
     }
-  }, [data]);
+    if (data && data[0] && groupable) {
+      setColOrder(data[0].groupHead.map((e) => e.column));
+    }
+  }, [data, groupable]);
 
   const innerWidth =
     visibleData &&
@@ -116,15 +118,15 @@ const DataTable = ({
           {visibleData &&
             Array.isArray(visibleData) &&
             visibleData.map((row, rowIndex) => (
-              <DataTableRow key={rowIndex}>
-                {row.map((col, colIndex) => (
+              <DataTableRow key={rowIndex} rowData={row} horizontal={horizontal} colWidth={colWidth} rowHeight={rowHeight}>
+                {/* {row.map((col, colIndex) => (
                   <DataTableCell
                     value={col.value}
                     key={col.id}
                     width={colWidth}
                     height={rowHeight}
                   />
-                ))}
+                ))} */}
               </DataTableRow>
             ))}
         </StyledDataTableBody>
