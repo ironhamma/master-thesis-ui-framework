@@ -58,6 +58,9 @@ function Resizable({
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
+        onMouseLeave={() => {
+          setIsResizing(false);
+        }}
       />
       {children}
     </StyledResizeable>
