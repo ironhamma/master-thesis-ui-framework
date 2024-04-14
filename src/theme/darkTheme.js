@@ -238,8 +238,8 @@ export const darkTheme = {
       none: 0,
       small: 4,
       medium: 8,
-      large: 16
-    }
+      large: 16,
+    },
   },
   transition: {
     delay: {

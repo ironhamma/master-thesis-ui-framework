@@ -13,7 +13,7 @@ function useVisibility({ threshold, root, rootMargin }) {
         threshold: threshold || 0,
         root: root || null,
         rootMargin: rootMargin || "0%",
-      }
+      },
     );
 
     if (ref.current) {

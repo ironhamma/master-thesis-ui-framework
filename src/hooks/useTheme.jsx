@@ -5,10 +5,10 @@ import { THEME_MODES } from "../helpers/consts";
 
 const ThemeContext = React.createContext();
 
-let themeElement = document.createElement("style");
+const themeElement = document.createElement("style");
 document.head.appendChild(themeElement);
 
-export const ThemeContextProvider = ({ children }) => {
+export function ThemeContextProvider({ children }) {
   const [theme, setTheme] = useState(lightTheme);
   const [mode, setMode] = useState(THEME_MODES.LIGHT);
 
@@ -32,12 +32,10 @@ export const ThemeContextProvider = ({ children }) => {
       {children}
     </ThemeContext.Provider>
   );
-};
+}
 
 ThemeContext.displayName = "ThemeContext";
 
-export const useTheme = () => {
-  return useContext(ThemeContext);
-};
+export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeContextConsumer = ThemeContext.Consumer;
