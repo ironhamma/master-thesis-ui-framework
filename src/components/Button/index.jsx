@@ -1,11 +1,10 @@
-const Button = ({ children, onClick }) => {
+import { StyledButton } from "./styles";
+
+function Button({ children, onClick, ...props }) {
   return (
-    <div className="duckButton" onClick={onClick}>
+    <StyledButton onClick={onClick} {...props}>
       {children}
-    </div>
+    </StyledButton>
   );
-};
+}
 export default Button;
-
-
-//TODO: SEO this

@@ -39,11 +39,12 @@ export const Default = {
   },
 };
 
-export const WithAside = (args) => (
-  <Article mode={args.mode}>
-    <p>
-      {args.text ||
-        `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
+export function WithAside(args) {
+  return (
+    <Article mode={args.mode}>
+      <p>
+        {args.text ||
+          `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
       officiis cum quas, consequatur modi maxime aspernatur eaque magnam odio
       totam deserunt aut id harum dolore sapiente ex similique, corrupti esse
       eligendi! Impedit tempora non consequuntur tenetur quo reiciendis possimus
@@ -56,15 +57,16 @@ export const WithAside = (args) => (
       aspernatur eaque magnam odio totam deserunt aut id harum dolore sapiente
       ex similique, corrupti esse eligendi! Impedit tempora non consequuntur
       tenetur quo reiciendis possimus beatae.`}
-    </p>
-    <Aside orientation={args.orientation} mode={args.mode}>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
-      officiis cum quas, consequatur modi maxime aspernatur eaque magnam odio
-      totam deserunt aut id harum dolore sapiente ex similique, corrupti esse
-      eligendi!
-    </Aside>
-  </Article>
-);
+      </p>
+      <Aside orientation={args.orientation} mode={args.mode}>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque
+        officiis cum quas, consequatur modi maxime aspernatur eaque magnam odio
+        totam deserunt aut id harum dolore sapiente ex similique, corrupti esse
+        eligendi!
+      </Aside>
+    </Article>
+  );
+}
 
 WithAside.argTypes = {
   orientation: { control: "select", options: ORIENTATION_LIST },

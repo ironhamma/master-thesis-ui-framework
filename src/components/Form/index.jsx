@@ -1,9 +1,7 @@
-const Form = ({children, props}) => {
-    return (
-        <form {...props}>
-            {children}
-        </form>
-    )
-};
+import { StyledForm } from "./styles";
+
+function Form({ children, props }) {
+  return <StyledForm {...props}>{children}</StyledForm>;
+}
 
 export default Form;

@@ -13,25 +13,25 @@ export const lightTheme = {
       text: "",
     },
     error: {
-      main: "",
+      main: "#FF0000",
       light: "",
       dark: "",
       text: "",
     },
     warning: {
-      main: "",
+      main: "#FFA500",
       light: "",
       dark: "",
       text: "",
     },
     info: {
-      main: "",
+      main: "#00FFFF",
       light: "",
       dark: "",
       text: "",
     },
     success: {
-      main: "",
+      main: "#00FF00",
       light: "",
       dark: "",
       text: "",
@@ -238,8 +238,8 @@ export const lightTheme = {
       none: 0,
       small: 4,
       medium: 8,
-      large: 16
-    }
+      large: 16,
+    },
   },
   transition: {
     delay: {

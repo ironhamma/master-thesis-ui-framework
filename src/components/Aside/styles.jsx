@@ -10,5 +10,6 @@ export const StyledAside = styled.aside`
   color: ${({ theme, mode }) => theme.colors[mode].text};
   order: ${({ orientation }) => (orientation === ORIENTATION.LEFT ? -1 : 1)};
   max-width: 40%;
-  ${({orientation}) => (orientation === ORIENTATION.RIGHT && 'margin-left: auto')};
+  ${({ orientation }) =>
+    orientation === ORIENTATION.RIGHT && "margin-left: auto"};
 `;

@@ -11,6 +11,44 @@ import Section from "../src/components/Section";
 import Hero from "../src/components/Hero";
 import Form from "../src/components/Form";
 import Input from "../src/components/Input";
+import Button from "../src/components/Button";
+import Select from "../src/components/Select";
+import Output from "../src/components/Output";
+import Textarea from "../src/components/Textarea";
+import Progress from "../src/components/Progess";
+import Fieldset from "../src/components/Fieldset";
+import Checkbox from "../src/components/Checkbox";
+import Suggestion from "../src/components/Suggestion";
+import Colorpicker from "../src/components/Colorpicker";
+import Flex from "../src/components/Flex";
+import Table from "../src/components/Table";
+
+const MOCK_TABLE_DATA = [
+  {
+    id: 1,
+    name: "John Doe",
+    age: 32,
+    gender: "male",
+  },
+  {
+    id: 2,
+    name: "Jane Doe",
+    age: 28,
+    gender: "female",
+  },
+  {
+    id: 3,
+    name: "John Smith",
+    age: 45,
+    gender: "male",
+  },
+  {
+    id: 4,
+    name: "Jane Smith",
+    age: 34,
+    gender: "female",
+  },
+];
 
 function DemoSite() {
   const { toggleMode, theme } = useTheme();
@@ -84,9 +122,88 @@ function DemoSite() {
         </Heading>
       </Section>
       <Section title="Forms">
+        <Flex>
+          <Form>
+            <Fieldset legend="Feature Flags">
+              <Checkbox
+                label="Headless"
+                checked={featureFlags.headless}
+                onChange={() => {
+                  flipFlag("headless");
+                }}
+              />
+              <Checkbox
+                label="Sticky Header"
+                checked={featureFlags.stickyHeader}
+                onChange={() => {
+                  flipFlag("stickyHeader");
+                }}
+              />
+            </Fieldset>
+            <Fieldset legend="Inputs">
+              <Input label="Forname" placeholder="John" />
+              <Input label="Surname" placeholder="Doe" />
+              <Input label="Title" placeholder="Mr." />
+              <Input label="Gender" placeholder="male" />
+            </Fieldset>
+          </Form>
+          <Form>
+            <Input label="Name" placeholder="John Doe" />
+            <Colorpicker label="Pick a color" />
+            <Input label="Time" type="time" />
+            <Input label="Date" type="date" />
+            <Input label="Password" type="password" />
+            <Suggestion
+              suggestions={["Option 1", "Option 2", "Option 3"]}
+              label="Input with suggestions"
+            />
+            <Select
+              label="Select"
+              options={["Option 1", "Option 2", "Option 3"]}
+              grouped
+            />
+            <Select
+              label="Select"
+              options={["Option 1", "Option 2", "Option 3"]}
+            />
+            <Button>Submit</Button>
+          </Form>
+          <Form>
+            <Textarea
+              value="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            dolorum atque doloribus repellendus omnis facere officia. Temporibus
+            ex laborum, culpa vitae eum dolores ducimus, esse impedit, nulla
+            ratione natus quo!"
+            />
+          </Form>
+        </Flex>
         <Form>
-          <Input label="Name" placeholder="John Doe" />
+          <Output>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            dolorum atque doloribus repellendus omnis facere officia. Temporibus
+            ex laborum, culpa vitae eum dolores ducimus, esse impedit, nulla
+            ratione natus quo!
+          </Output>
+
+          <Progress />
+          <Progress
+            max={100}
+            low={20}
+            high={80}
+            optimum={60}
+            value={75}
+            height={30}
+          />
         </Form>
+      </Section>
+      <Section title="Table">
+        <Table
+          data={MOCK_TABLE_DATA}
+          columns={["Id", "Name", "Age", "Gender"]}
+          caption="Mock Table"
+          colgroups={[2, 1]}
+          footer={{ value: MOCK_TABLE_DATA.length, label: "Total" }}
+        />
       </Section>
       <Section title="Articles">
         <Article>

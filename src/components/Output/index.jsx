@@ -1,11 +1,7 @@
-const Output = () => {
-    return (
-        <div>
-        <p>Output</p>
-        </div>
-    );
-};
+import { StyledOutput } from "./styles";
+
+function Output({ children }) {
+  return <StyledOutput>{children}</StyledOutput>;
+}
 
 export default Output;
-
-// should have value, name, for attributes
