@@ -62,30 +62,33 @@ const MOCK_DATA_GROUPED = [
   },
 ];
 
-function Select({ options, grouped = false }) {
+function Select({ options, grouped = false, label = "" }) {
   if (grouped) {
-    options = MOCK_DATA_GROUPED;
+    console.log("si si");
   } else {
-    options = MOCK_DATA;
+    console.log("yes yes");
   }
   return (
-    <StyledSelect>
-      {grouped
-        ? options.map((group) => (
-            <optgroup key={group.label} label={group.label}>
-              {group.options.map((option) => (
-                <StyledOption key={option.id} value={option.id}>
-                  {option.name}
-                </StyledOption>
-              ))}
-            </optgroup>
-          ))
-        : options.map((option) => (
-            <StyledOption key={option.id} value={option.id}>
-              {option.name}
-            </StyledOption>
-          ))}
-    </StyledSelect>
+    <>
+      <label>{label}</label>
+      <StyledSelect>
+        {grouped
+          ? options.map((group) => (
+              <optgroup key={group.label} label={group.label}>
+                {group.options.map((option) => (
+                  <StyledOption key={option.id} value={option.id}>
+                    {option.name}
+                  </StyledOption>
+                ))}
+              </optgroup>
+            ))
+          : options.map((option) => (
+              <StyledOption key={option.id} value={option.id}>
+                {option.name}
+              </StyledOption>
+            ))}
+      </StyledSelect>
+    </>
   );
 }
 

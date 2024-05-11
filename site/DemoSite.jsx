@@ -50,6 +50,33 @@ const MOCK_TABLE_DATA = [
   },
 ];
 
+const MOCK_TABLE_DATA2 = [
+  {
+    id: 1,
+    city: "Budapest",
+    country: "Hungary",
+    population: "2 000 000",
+  },
+  {
+    id: 2,
+    city: "Berlin",
+    country: "Germany",
+    population: "3 640 000",
+  },
+  {
+    id: 3,
+    city: "London",
+    country: "United Kingdom",
+    population: "8 980 000",
+  },
+  {
+    id: 4,
+    city: "Lisbon",
+    country: "Portugal",
+    population: "504 000",
+  },
+];
+
 function DemoSite() {
   const { toggleMode, theme } = useTheme();
 
@@ -157,7 +184,7 @@ function DemoSite() {
               suggestions={["Option 1", "Option 2", "Option 3"]}
               label="Input with suggestions"
             />
-            <Select
+            {/* <Select
               label="Select"
               options={["Option 1", "Option 2", "Option 3"]}
               grouped
@@ -165,7 +192,7 @@ function DemoSite() {
             <Select
               label="Select"
               options={["Option 1", "Option 2", "Option 3"]}
-            />
+            /> */}
             <Button>Submit</Button>
           </Form>
           <Form>
@@ -175,6 +202,179 @@ function DemoSite() {
             ex laborum, culpa vitae eum dolores ducimus, esse impedit, nulla
             ratione natus quo!"
             />
+          </Form>
+        </Flex>
+        <Flex>
+          <Form>
+            <Input label="Username" placeholder="Enter username" />
+            <Input label="Email" placeholder="Enter email" type="email" />
+            <Input
+              label="Password"
+              placeholder="Enter password"
+              type="password"
+            />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
+          </Form>
+          <Form>
+            <Suggestion
+              suggestions={[
+                "Portugal",
+                "Italy",
+                "Croatia",
+                "Germany",
+                "United Kingdom",
+              ]}
+              label="Country"
+            />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
+          </Form>
+          <Form>
+            {/* <Select
+              label="Department"
+              options={[
+                {
+                  name: "Automatizálási és Alkalmazott Informatikai Tanszék",
+                  id: 1,
+                },
+                { name: "Elektronikai Technológia Tanszék", id: 1 },
+                { name: "Elektronikus Eszközök Tanszéke", id: 1 },
+                {
+                  name: "Hálózati Rendszerek és Szolgáltatások Tanszék",
+                  id: 1,
+                },
+                { name: "Irányítástechnika és Informatika Tanszék", id: 1 },
+                {
+                  name: "Méréstechnika és Információs Rendszerek Tanszék",
+                  id: 1,
+                },
+                {
+                  name: "Számítástudományi és Információelméleti Tanszék",
+                  id: 1,
+                },
+                {
+                  name: "Szélessávú Hírközlés és Villamosságtan Tanszék",
+                  id: 1,
+                },
+                { name: "Távközlési és Médiainformatikai Tanszék", id: 1 },
+                { name: "Villamos Energetika Tanszék", id: 1 },
+              ]}
+            /> */}
+            <Select
+              label="Department"
+              grouped
+              options={[
+                {
+                  label: "VIK",
+                  options: [
+                    {
+                      name: "Automatizálási és Alkalmazott Informatikai Tanszék",
+                      id: 1,
+                    },
+                    { name: "Elektronikai Technológia Tanszék", id: 1 },
+                    { name: "Elektronikus Eszközök Tanszéke", id: 1 },
+                    {
+                      name: "Hálózati Rendszerek és Szolgáltatások Tanszék",
+                      id: 1,
+                    },
+                    { name: "Irányítástechnika és Informatika Tanszék", id: 1 },
+                    {
+                      name: "Méréstechnika és Információs Rendszerek Tanszék",
+                      id: 1,
+                    },
+                    {
+                      name: "Számítástudományi és Információelméleti Tanszék",
+                      id: 1,
+                    },
+                    {
+                      name: "Szélessávú Hírközlés és Villamosságtan Tanszék",
+                      id: 1,
+                    },
+                    { name: "Távközlési és Médiainformatikai Tanszék", id: 1 },
+                    { name: "Villamos Energetika Tanszék", id: 1 },
+                  ],
+                },
+                {
+                  label: "VBK",
+                  options: [
+                    {
+                      name: "Alkalmazott Biotechnológia és Élelmiszertudományi Tanszék",
+                      id: 1,
+                    },
+                    { name: "Fizikai Kémia és Anyagtudományi Tanszék", id: 1 },
+                    {
+                      name: "Kémiai és Környezeti Folyamatmérnöki Tanszék",
+                      id: 1,
+                    },
+                    { name: "Szerves Kémia és Technológia Tanszék", id: 1 },
+                    { name: "Szervetlen és Analitikai Kémia Tanszék", id: 1 },
+                  ],
+                },
+              ]}
+            />
+            <Input label="Name" placeholder="Enter name" />
+            <Input label="Name" placeholder="Enter name" />
+            <Input label="Room number" placeholder="Room number" />
+            <Input label="Room number" placeholder="Room number" />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
+          </Form>
+        </Flex>
+        <Flex>
+          <Form>
+            <Suggestion
+              suggestions={[
+                "Portugal",
+                "Italy",
+                "Croatia",
+                "Germany",
+                "United Kingdom",
+              ]}
+              label="Country"
+            />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
+          </Form>
+          <Form>
+            <Suggestion
+              suggestions={[
+                "Portugal",
+                "Italy",
+                "Croatia",
+                "Germany",
+                "United Kingdom",
+              ]}
+              label="Country"
+            />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
+          </Form>
+          <Form>
+            <Suggestion
+              suggestions={[
+                "Portugal",
+                "Italy",
+                "Croatia",
+                "Germany",
+                "United Kingdom",
+              ]}
+              label="Country"
+            />
+            <Flex style={{ width: "100%" }}>
+              <Button style={{ width: "100%" }}>Submit</Button>
+              <Button style={{ width: "100%" }}>Reset</Button>
+            </Flex>
           </Form>
         </Flex>
         <Form>
@@ -203,6 +403,12 @@ function DemoSite() {
           caption="Mock Table"
           colgroups={[2, 1]}
           footer={{ value: MOCK_TABLE_DATA.length, label: "Total" }}
+        />
+      </Section>
+      <Section title="">
+        <Table
+          data={MOCK_TABLE_DATA2}
+          columns={["Id", "City", "Country", "Population"]}
         />
       </Section>
       <Section title="Articles">
